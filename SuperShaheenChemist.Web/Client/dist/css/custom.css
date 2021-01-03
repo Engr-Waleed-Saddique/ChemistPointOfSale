@@ -1,0 +1,28 @@
+﻿.title-padding {
+    padding: 0px 5px;
+}
+.bg-aqua
+{
+    background-color: #4a6984;
+}
+
+.purchase-heading {
+    background-color: #4a6984;
+    color: #fff;
+    border-radius: 3px;
+    padding: 7px;
+}
+.error {
+    color: red;
+}
+
+select.error, textarea.error, input.error {
+    border-color: #FF0000;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .content-wrapper {
+        margin-top: 50px;
+    }
+}
