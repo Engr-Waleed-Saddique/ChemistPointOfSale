@@ -1,6 +1,5 @@
-﻿@model List<Category>
+﻿@model DropDownViewModels
 
-<script src="~/Client/plugins/jquery-validation/jquery.validate.min.js"></script>
 <div class="content-wrapper">
     <!-- pages navigates here -->
     <section class="content">
@@ -61,14 +60,12 @@
                                         <label> Type: <a onclick="show_modal_page('https://medix.spantiklab.com/product/popup/add_product_type_model')" href="javascript:void(0)"> (Add Type)</a></label>
                                         <select class="form-control select2" name="Type" id="category_id" style="width: 100%;">
                                             <option value="">Select Type</option>
-                                            <option value="1">Liquid</option>
-                                            <option value="2">Tablet</option>
-                                            <option value="3">Capsules</option>
-                                            <option value="4">Topical medicines</option>
-                                            <option value="5">Drops</option>
-                                            <option value="6">Inhalers</option>
-                                            <option value="7">Injections</option>
+                                            @foreach (var type in Model.medicinesTypes)
+                                            {
+                                                <option value="@type.Id">@type.Name</option>
+                                            }
                                         </select>
+
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -104,33 +101,10 @@
                                         <label> Company: <a onclick="show_modal_page('https://medix.spantiklab.com/product/popup/add_brand_model')" href="javascript:void(0)"> (add Company)</a></label>
                                         <select class="form-control select2" name="CompanyName" id="category_id" style="width: 100%;">
                                             <option value="">Select Company</option>
-                                            <option value="1">
-                                                Saami
-                                            </option>
-                                            <option value="2">
-                                                Getz
-                                            </option>
-                                            <option value="3">
-                                                Abbott
-                                            </option>
-                                            <option value="4">
-                                                Bosh
-                                            </option>
-                                            <option value="5">
-                                                Stanley
-                                            </option>
-                                            <option value="6">
-                                                Martin Dow
-                                            </option>
-                                            <option value="7">
-                                                Shaygan
-                                            </option>
-                                            <option value="8">
-                                                GSK
-                                            </option>
-                                            <option value="9">
-                                                Pfizer
-                                            </option>
+                                            @foreach (var company in Model.companies)
+                                            {
+                                                <option value="@company.Id">@company.Name</option>
+                                            }
                                         </select>
                                     </div>
                                 </div>
@@ -139,10 +113,10 @@
                                         <label> Distributor: <a onclick="show_modal_page('https://medix.spantiklab.com/product/popup/add_brand_sector')" href="javascript:void(0)"> (add Distributor)</a></label>
                                         <select class="form-control select2" name="Distributor" id="category_id" style="width: 100%;">
                                             <option value="">Select Distributor</option>
-                                            <option value="1">Sameer Medicose</option>
-                                            <option value="2">Friends Distributor</option>
-                                            <option value="3">Nusrat Pharma Distributor</option>
-                                            <option value="4">MM Medicose Distributor</option>
+                                            @foreach (var distributor in Model.distributors)
+                                            {
+                                                <option value="@distributor.Id">@distributor.Name</option>
+                                            }
                                         </select>
                                     </div>
                                 </div>
@@ -151,10 +125,10 @@
                                         <label> Category: <a onclick="show_modal_page('https://medix.spantiklab.com/product/popup/add_category_model')" href="javascript:void(0)"> (add category)</a></label>
                                         <select class="form-control select2" name="Category" id="category_id" style="width: 100%;">
                                             <option value="">Select Category</option>
-                                            <option value="1">General Sales List </option>
-                                            <option value="2">Pharmacy Medicines </option>
-                                            <option value="3">Prescription Only Medicines</option>
-                                            <option value="4">Control Drugs</option>
+                                            @foreach (var category in Model.categories)
+                                            {
+                                                <option value="@category.Id">@category.Name</option>
+                                            }
                                         </select>
                                     </div>
                                 </div>
@@ -318,6 +292,7 @@
     <!-- product calculations  -->
     <script src="https://medix.spantiklab.com/assets/dist/js/backend/product.js"></script>		<!-- /.content -->
 </div>
+<script src="~/Client/plugins/jquery-validation/jquery.validate.min.js"></script>
 <!-- /.content-wrapper -->
 <!-- ./wrapper -->
 <script>

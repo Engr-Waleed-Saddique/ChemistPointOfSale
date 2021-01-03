@@ -1,5 +1,6 @@
 ﻿using SuperShaheenChemist.Entities;
 using SuperShaheenChemist.Services;
+using SuperShaheenChemist.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,14 @@ namespace SuperShaheenChemist.Web.Controllers
         {
             return View();
         }
-        public ActionResult Add_New_Product()
+        public ActionResult add_new_product()
         {
-            var categories = CategoriesService.Instance.GetAllCategories();
-            return View(categories);
+            DropDownViewModels model = new DropDownViewModels();
+            model.categories= CategoriesService.Instance.GetAllCategories();
+            model.distributors = DistributorService.Instance.GetAllDistributors();
+            model.companies = CompanyService.Instance.GetAllCompanies();
+            model.medicinesTypes = MedicineTypeService.Instance.GetAllMedicineTypes();
+            return View(model);
         }
         [HttpPost]
         public ActionResult Create(Product model)
