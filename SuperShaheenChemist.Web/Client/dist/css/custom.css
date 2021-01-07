@@ -1,4 +1,10 @@
-﻿.title-padding {
+﻿body {
+    table-layout: fixed;
+}
+div.container {
+    max-width: 1200px
+}
+.title-padding {
     padding: 0px 5px;
 }
 .bg-aqua
@@ -20,6 +26,29 @@ select.error, textarea.error, input.error {
     border-color: #FF0000;
 }
 
+.dataTables tbody td {
+    min-height: 25px; /* or whatever height you need to make them all consistent */
+}
+.dataTables_wrapper .dt-buttons {
+    float: none !important;
+    text-align: center !important;
+}
+.pointer {
+    cursor: pointer;
+    color:red;
+}
+.blue {
+    color: blue;
+    text-decoration: underline;
+}
+.red {
+    color: red;
+    text-decoration: underline;
+}
+table.dataTable thead th {
+    text-decoration: none;
+    color:black;
+}
 
 @media only screen and (max-width: 600px) {
     .content-wrapper {

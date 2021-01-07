@@ -18,4 +18,13 @@ namespace SuperShaheenChemist.Web.ViewModels
         public List<Distributor> distributors { get; set; }
 
     }
+    public class EditViewModel
+    {
+        public Product product { get; set; }
+        public List<Category> categories { get; set; }
+        public List<Company> companies { get; set; }
+        public List<MedicineType> medicinesTypes { get; set; }
+        public List<Distributor> distributors { get; set; }
+    }
+
 }

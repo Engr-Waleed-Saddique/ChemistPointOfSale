@@ -1,4 +1,4 @@
-﻿@model DropDownViewModels
+﻿@model EditViewModel
 <script src="~/Client/plugins/jquery-validation/jquery.validate.min.js"></script>
 <div class="content-wrapper">
     <!-- pages navigates here -->
@@ -19,28 +19,28 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Product Name:</label>
-                                        <input type="text" name="ProductName" value="" class="form-control input-lg" placeholder="e.g Panadol" reqiured="" />
+                                        <input type="text" name="ProductName" value="@Model.product.ProductName" class="form-control input-lg" placeholder="e.g Panadol" reqiured="" />
                                     </div>
                                     <small>Name of the medicine or product ? </small>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Generic Name:</label>
-                                        <input type="text" name="GenericName" value="" class="form-control input-lg" placeholder="e.g Paracetamol" reqiured="" />
+                                        <input type="text" name="GenericName" value="@Model.product.GenericName" class="form-control input-lg" placeholder="e.g Paracetamol" reqiured="" />
                                     </div>
                                     <small>Name of the product ? </small>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Batch No:</label>
-                                        <input type="text" name="BatchNo" value="" class="form-control input-lg" placeholder="e.g Batch No" reqiured="" />
+                                        <input type="text" name="BatchNo" value="@Model.product.BatchNo" class="form-control input-lg" placeholder="e.g Batch No" reqiured="" />
                                     </div>
                                     <small>Sku or Batch No ?  </small>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Barcode:</label>
-                                        <input type="text" name="BarCode" value="" class="form-control input-lg" placeholder="e.g 000025444255658" reqiured="" />
+                                        <input type="text" name="BarCode" value="@Model.product.BarCode" class="form-control input-lg" placeholder="e.g 000025444255658" reqiured="" />
                                     </div>
                                 </div>
 
@@ -49,7 +49,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Description:</label>
-                                        <textarea name="Description" class="form-control" rows="5"></textarea>
+                                        <textarea name="Description" class="form-control" rows="5">@Model.product.Description</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +61,8 @@
                                             <option value="">Select Type</option>
                                             @foreach (var type in Model.medicinesTypes)
                                             {
-                                                <option value="@type.Id">@type.Name</option>
+                                                var selected = type.Id == Model.product.MedicineTypeId ? "selected" : string.Empty;
+                                                <option value="@type.Id" @selected>@type.Name</option>
                                             }
                                         </select>
 
@@ -71,7 +72,7 @@
                                     <div class="form-group">
                                         <label>Upload item image:</label>
                                         <div class="input-group">
-                                            <input type="file" name="ImageURL" data-validate="required" class="form-control input-lg" data-message-required="Value Required">
+                                            <input type="file" name="ImageURL" data-validate="required" value="@Model.product.ImageURL" class="form-control input-lg" data-message-required="Value Required">
                                         </div>
                                     </div>
                                     <small>Product scan or captured image ?</small>
@@ -79,14 +80,14 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Total Unit Qty: </label>
-                                        <input type="number" name="UnitQuantity" value="" class="form-control input-lg" id="" placeholder="e.g 250" reqiured="" />
+                                        <input type="number" name="UnitQuantity" value="@Model.product.UnitQuantity" class="form-control input-lg" id="" placeholder="e.g 250" reqiured="" />
                                     </div>
                                     <small>Total quantity of single units </small>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Discount (%): </label>
-                                        <input type="number" name="CustDiscount" value="" class="form-control input-lg" id="" placeholder="e.g 5" step="any" />
+                                        <input type="number" name="CustDiscount" value="@Model.product.CustDiscount" class="form-control input-lg" id="" placeholder="e.g 5" step="any" />
                                     </div>
                                     <small>Discount offer to customers in % </small>
                                 </div>
@@ -102,7 +103,8 @@
                                             <option value="">Select Company</option>
                                             @foreach (var company in Model.companies)
                                             {
-                                                <option value="@company.Id">@company.Name</option>
+                                                var selected = company.Id == Model.product.CategoryId ? "selected" : string.Empty;
+                                                <option value="@company.Id" @selected>@company.Name</option>
                                             }
                                         </select>
                                     </div>
@@ -114,7 +116,8 @@
                                             <option value="">Select Distributor</option>
                                             @foreach (var distributor in Model.distributors)
                                             {
-                                                <option value="@distributor.Id">@distributor.Name</option>
+                                                var selected = distributor.Id == Model.product.DistributorId ? "selected" : string.Empty;
+                                                <option value="@distributor.Id" @selected>@distributor.Name</option>
                                             }
                                         </select>
                                     </div>
@@ -126,7 +129,8 @@
                                             <option value="">Select Category</option>
                                             @foreach (var category in Model.categories)
                                             {
-                                                <option value="@category.Id">@category.Name</option>
+                                                var selected = category.Id == Model.product.CategoryId ? "selected" : string.Empty;
+                                                <option value="@category.Id" @selected>@category.Name</option>
                                             }
                                         </select>
                                     </div>
@@ -139,28 +143,28 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Minimum stock level required:</label>
-                                        <input type="number" name="MinStock" value="" class="form-control input-lg" placeholder="e.g 20" reqiured="" />
+                                        <input type="number" name="MinStock" value="@Model.product.MinStock" class="form-control input-lg" placeholder="e.g 20" reqiured="" />
                                     </div>
                                     <small>Product alert indicator level ? </small>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Side Effects:</label>
-                                        <input type="text" name="SideEffects" value="" class="form-control input-lg" id="sideeffects" placeholder="e.g avoid childrens" reqiured="" />
+                                        <input type="text" name="SideEffects" value="@Model.product.SideEffects" class="form-control input-lg" id="sideeffects" placeholder="e.g avoid childrens" reqiured="" />
                                     </div>
                                     <small>Side effects of product ? </small>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Pack Size: </label>
-                                        <input type="number" name="PackSize" value="" class="form-control input-lg" id="unit_per_pack" onkeyup="calculate_quantity()" placeholder="e.g 12" reqiured="" />
+                                        <input type="number" name="PackSize" value="@Model.product.PackSize" class="form-control input-lg" id="unit_per_pack" onkeyup="calculate_quantity()" placeholder="e.g 12" reqiured="" />
                                     </div>
                                     <small>Total number of products in each pack ? </small>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Unit Location in store: </label>
-                                        <input type="text" name="Location" value="" class="form-control input-lg" placeholder="Top right corner" reqiured="" />
+                                        <input type="text" name="Location" value="@Model.product.Location" class="form-control input-lg" placeholder="Top right corner" reqiured="" />
                                     </div>
                                     <small>Location where you stored this product in store. </small>
                                 </div>
@@ -172,13 +176,13 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Manufacturing Date :</label>
-                                        <input type="date" name="ManufactureDate" value="" class="form-control input-lg" reqiured="" />
+                                        <input type="date" name="ManufactureDate" value="@(Model.product.ManufactureDate.ToString("yyy-MM-dd"))" class="form-control input-lg" reqiured="" />
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Expiry Date :</label>
-                                        <input type="date" name="ExpiryDate" value="" class="form-control input-lg" reqiured="" />
+                                        <input type="date" name="ExpiryDate" value="@Model.product.ExpiryDate.ToString("yyy-MM-dd")" class="form-control input-lg" reqiured="" />
                                     </div>
                                 </div>
                             </div>
@@ -189,25 +193,25 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Unit Cost Price:</label>
-                                        <input type="number" name="UnitCost" value="" class="form-control input-lg" step="any" />
+                                        <input type="number" name="UnitCost" value="@Model.product.UnitCost" class="form-control input-lg" step="any" />
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Unit Retail Price:</label>
-                                        <input type="number" name="UnitRetail" value="" class="form-control input-lg" step="any" />
+                                        <input type="number" name="UnitRetail" value="@Model.product.UnitRetail" class="form-control input-lg" step="any" />
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Pack Cost Price:</label>
-                                        <input type="number" name="PackCost" value="" class="form-control input-lg" step="any" />
+                                        <input type="number" name="PackCost" value="@Model.product.PackCost" class="form-control input-lg" step="any" />
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Retail Cost Price :</label>
-                                        <input type="number" name="PackRetailCost" value="" class="form-control input-lg" step="any" />
+                                        <input type="number" name="PackRetailCost" value="@Model.product.PackRetailCost" class="form-control input-lg" step="any" />
                                     </div>
                                 </div>
                             </div>
@@ -218,16 +222,17 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Sales Tax% :</label>
-                                        <input type="number" name="SalesTax" value="" class="form-control input-lg" placeholder="2.30" />
+                                        <input type="number" name="SalesTax" value="@Model.product.SalesTax" class="form-control input-lg" placeholder="2.30" />
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" name="Id" value="@Model.product.Id" />
                         <div class="box-body bg-setting-product">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <button id="saveBtn" name="saveBtn" class="btn btn-info btn-flat btn-lg pull-right" value="true"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save Product</button>
+                                        <button id="updateBtn" name="updateBtn" class="btn btn-info btn-flat btn-lg pull-right" value="true"><i class="fa fa-floppy-o" aria-hidden="true"></i> Update Product</button>
                                     </div>
                                 </div>
                             </div>
@@ -342,7 +347,7 @@
         }
     }
     );
-    $("#saveBtn").click(function () {
+    $("#updateBtn").click(function () {
 
         if ($("#createProduct").valid()) {
             //event.preventDefualt is used to show the sweet alert if we not use this the sweet alert is disappear immediately.
@@ -350,15 +355,21 @@
             $.ajax(
                 {
                     type: 'post',
-                    url: '/Product/Create',
+                    url: '/Product/Edit',
                     data: $("#createProduct").serialize()
                 })
                 .done(function (response) {
+                    swal({
+                        title: "Product Updated!",
+                        text: "Product Updated Successfully!!",
+                        type: "success"
+                    }).then(function () {
+                        window.location = "/product";
+                    });
 
                 }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
                     alert("Fail");
                 });
-            swal("Product Added!", "Product Added Successfully!", "success");
             $("#createProduct").trigger("reset");
         }
         else {

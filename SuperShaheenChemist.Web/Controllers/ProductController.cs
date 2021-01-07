@@ -1,5 +1,6 @@
 ﻿using SuperShaheenChemist.Entities;
 using SuperShaheenChemist.Services;
+using SuperShaheenChemist.Web.Models;
 using SuperShaheenChemist.Web.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -26,26 +27,89 @@ namespace SuperShaheenChemist.Web.Controllers
             return View(model);
         }
         [HttpPost]
-        public ActionResult Create(Product model)
+        public void Create(Product model)
         {
-            var newProduct = new Product();
-            newProduct.ProductName = model.ProductName;
-            //newProduct.CompanyID= CategoriesService.Instance.GetCategory(model.CategoryID);
-            newProduct.GenericName = model.GenericName;
-            newProduct.BatchNo = model.BatchNo;
-            newProduct.BarCode = model.BarCode;
-            newProduct.Description = model.Description;
-            //newProduct.CategoryID = model.CategoryID;
-            //if we are doing large projects then we have to use above line that is commented.For this we have to add also one more attrbute in Product class
-            // with name CategoryID and entity framework replace The existing cloumn name with this and make this as Foriegn key.We can use this to reduce the
-            // number of database calls.
+            ProductsService.Instance.SaveProduct(model);
+        }
+        public ActionResult GetData(JqueryDatatableParam param)
+        {
+            var products = ProductsService.Instance.GetProducts(); //This method is returning the IEnumerable employee from database 
+
+            //Searching
+            if (!string.IsNullOrEmpty(param.sSearch))
+            {
+                products = products.Where(x => x.ProductName.ToLower().Contains(param.sSearch.ToLower())
+                                              || x.GenericName.ToLower().Contains(param.sSearch.ToLower())
+                                              || x.BatchNo.ToLower().Contains(param.sSearch.ToLower())
+                                              || x.BarCode.ToLower().Contains(param.sSearch.ToLower())
+                                              || x.Location.ToLower().Contains(param.sSearch.ToLower())
+                                              || x.ExpiryDate.ToString("dd'/'MM'/'yyyy").ToLower().Contains(param.sSearch.ToLower())).ToList();
+            }
+
+            //Sorting
+            var sortColumnIndex = Convert.ToInt32(HttpContext.Request.QueryString["iSortCol_0"]);
+            var sortDirection = HttpContext.Request.QueryString["sSortDir_0"];
+            if (sortColumnIndex == 3)
+            {
+                products = sortDirection == "asc" ? products.OrderBy(c => c.ProductName).ToList() : products.OrderByDescending(c => c.ProductName).ToList();
+            }
+            else if (sortColumnIndex == 4)
+            {
+                products = sortDirection == "asc" ? products.OrderBy(c => c.GenericName).ToList() : products.OrderByDescending(c => c.GenericName).ToList();
+            }
+            else if (sortColumnIndex == 5)
+            {
+                products = sortDirection == "asc" ? products.OrderBy(c => c.PackRetailCost).ToList() : products.OrderByDescending(c => c.PackRetailCost).ToList();
+            }
+            else
+            {
+                Func<Product, string> orderingFunction = e => sortColumnIndex == 0 ? e.ProductName : sortColumnIndex == 1 ? e.Location : e.Location;
+
+                products = sortDirection == "asc" ? products.OrderBy(orderingFunction).ToList() : products.OrderByDescending(orderingFunction).ToList();
+            }
+
+            //Pagination
+            var displayResult = products.Skip(param.iDisplayStart)
+               .Take(param.iDisplayLength).ToList();
+            var totalRecords = products.Count();
 
 
-
-
-            //ProductService.Instance.SaveProduct(newProduct);
-            return RedirectToAction("ProductTable");
+            //Sending data 
+            return Json(new
+            {
+                param.sEcho,
+                iTotalRecords = totalRecords,
+                iTotalDisplayRecords = totalRecords,
+                aaData = displayResult
+            }, JsonRequestBehavior.AllowGet);
 
         }
+        public ActionResult Edit(int ID)
+        {
+            EditViewModel model = new EditViewModel();
+            model.product = ProductsService.Instance.GetProduct(ID);
+            model.categories = CategoriesService.Instance.GetAllCategories();
+            model.distributors = DistributorService.Instance.GetAllDistributors();
+            model.companies = CompanyService.Instance.GetAllCompanies();
+            model.medicinesTypes = MedicineTypeService.Instance.GetAllMedicineTypes();
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public ActionResult Edit(Product product)
+        {
+            ProductsService.Instance.UpdateProduct(product);
+            //return PartialView(model);
+            return new JsonResult { Data = new { status = true } };
+        }
+        [HttpPost]
+        public ActionResult Delete(int ID)
+        {
+            ProductsService.Instance.DeleteProduct(ID);
+            return new JsonResult { Data = new { status = true } };
+            
+        }
+
     }
 }
