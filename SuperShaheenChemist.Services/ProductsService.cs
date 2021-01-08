@@ -37,11 +37,28 @@ namespace SuperShaheenChemist.Services
                 context.SaveChanges();
             }
         }
+
         public List<Product> GetProducts()
         {
             
             using(var context=new CBContext())
             {
+                return context.Products.ToList();
+            }
+        }
+        public Product GetProductById(int id)
+        {
+
+            using (var context = new CBContext())
+            {
+                return context.Products.Where(product => product.Id == id).FirstOrDefault();
+            }
+        }
+        public List<Product> GetProductsNameBarcode(string productName)
+        {
+            using (var context = new CBContext())
+            {
+
                 return context.Products.ToList();
             }
         }

@@ -61,6 +61,10 @@
     <Compile Include="Migrations\202101031151279_PrimaryForiegnKeyRelationAdded.Designer.cs">
       <DependentUpon>202101031151279_PrimaryForiegnKeyRelationAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101080723409_UnitQunatityColumnRemoved.cs" />
+    <Compile Include="Migrations\202101080723409_UnitQunatityColumnRemoved.Designer.cs">
+      <DependentUpon>202101080723409_UnitQunatityColumnRemoved.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -83,6 +87,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101031151279_PrimaryForiegnKeyRelationAdded.resx">
       <DependentUpon>202101031151279_PrimaryForiegnKeyRelationAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101080723409_UnitQunatityColumnRemoved.resx">
+      <DependentUpon>202101080723409_UnitQunatityColumnRemoved.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

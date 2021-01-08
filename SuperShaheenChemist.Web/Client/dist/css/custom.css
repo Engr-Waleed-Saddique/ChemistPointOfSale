@@ -7,10 +7,33 @@ div.container {
 .title-padding {
     padding: 0px 5px;
 }
+*:focus {
+    outline: none;
+}
 .bg-aqua
 {
     background-color: #4a6984;
 }
+.close {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    right: 0%;
+    padding: 12px 16px;
+    transform: translate(0%, -50%);
+}
+ul.ui-autocomplete {
+    list-style: none;
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+.ui-autocomplete {
+    background-color: inherit;
+    cursor: pointer;
+    height: 120px;
+    overflow-y: scroll;
+}  
 
 .purchase-heading {
     background-color: #4a6984;

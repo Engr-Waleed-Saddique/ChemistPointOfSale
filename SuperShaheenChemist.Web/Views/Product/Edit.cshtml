@@ -79,13 +79,6 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>Total Unit Qty: </label>
-                                        <input type="number" name="UnitQuantity" value="@Model.product.UnitQuantity" class="form-control input-lg" id="" placeholder="e.g 250" reqiured="" />
-                                    </div>
-                                    <small>Total quantity of single units </small>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
                                         <label>Discount (%): </label>
                                         <input type="number" name="CustDiscount" value="@Model.product.CustDiscount" class="form-control input-lg" id="" placeholder="e.g 5" step="any" />
                                     </div>
@@ -307,7 +300,6 @@
             BarCode: { required: true, maxlength: 100 },
             Description: { maxlength: 500 },
             Type: { required: true },
-            UnitQuantity: { required: true },
             CompanyId: { required: true },
             DistributorId: { required: true },
             CategoryId: { required: true },
@@ -330,7 +322,6 @@
             BatchNo: { required: 'Batch No is required' },
             BarCode: { required: 'BarCode is required' },
             Description: { required: 'Description is required' },
-            UnitQuantity: { required: 'UnitQuantity is required' },
             CompanyId: { required: 'CompanyName is required' },
             DistributorId: { required: 'Distributor is required' },
             CategoryId: { required: 'Category is required' },
