@@ -53,43 +53,49 @@
                                 </div>
                             </div>
                         </div>
-
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="table" id="purchaseItems">
+                                        <thead class="">
+                                            <tr>
+                                                <th>Product Name</th>
+                                                <th>Generic Name</th>
+                                                <th>Quantity</th>
+                                                <th>Price</th>
+                                                <th>Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <table class="table" id="purchaseItems">
-                <thead>
-                    <tr>
-                    <th>Product Name</th>
-                    <th>Generic Name</th>
-                    <th>Units</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
-            </table>
-        </div>
+        
     </section>
 </div>
 
 <script>
     $(document).ready(function () {
+
         $('#searchProduct').hide();
         $('#barcode_scan_area').click(function () {
-
-            //$('#searchProduct').show();
             if ($('#searchProduct').is(":hidden")) {
                 $('#searchProduct').show();
                 $('#searchProduct').focus();
             }
-            else {
+
+            else { 
                 $('#searchProduct').hide();
-            }
+                $('#searchProduct').blur();
+                
+             }
+             //$('#searchProduct').hide();
+            
         }
         );
         $('#searchProduct').autocomplete({
@@ -137,13 +143,24 @@
                 dataType: 'JSON',
                 data: { productId: productid },
                 success: function (data) {
-                    alert(JSON.stringify(data));
-                    $("#purchaseItems").append('<tr><td>' + data.ProductName + '<td><tr>');
+                    //alert(JSON.stringify(data));
+                    $("#purchaseItems").append('<tr class="rowSelector" style="background-color: white;"><td>' + data.ProductName + '</td><td>'
+                        + data.GenericName + '</td><td><input id="qunatity" type="number"/></td><td>' + data.PackCost + '</td><td id="amount">0</td><tr>');
                     $("#barcode_scan_area").empty();
                 }
             });
             
         }
+        $('#purchaseItems').on('change', '.rowSelector', function () {
+            
+            //alert($(this).find('td:eq(3)').text());
+            var input = $(this).find('input').val();
+            var value = $(this).find('td:eq(3)').text();
+            $(this).find('td:eq(4)').html(input * value);
+
+
+        });
+
 
     });
 
