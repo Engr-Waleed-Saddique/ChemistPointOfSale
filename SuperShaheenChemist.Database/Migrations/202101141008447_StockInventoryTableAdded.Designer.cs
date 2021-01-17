@@ -7,13 +7,13 @@ namespace SuperShaheenChemist.Database.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class MoreTablesAddedWithPFRelation : IMigrationMetadata
+    public sealed partial class StockInventoryTableAdded : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(MoreTablesAddedWithPFRelation));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(StockInventoryTableAdded));
         
         string IMigrationMetadata.Id
         {
-            get { return "202101031143453_MoreTablesAddedWithPFRelation"; }
+            get { return "202101141008447_StockInventoryTableAdded"; }
         }
         
         string IMigrationMetadata.Source

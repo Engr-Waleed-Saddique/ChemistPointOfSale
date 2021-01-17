@@ -32,16 +32,23 @@ ul.ui-autocomplete {
 .ui-autocomplete {
     background-color: #DCDCDC;
     cursor: pointer;
-    height: 120px;
-    width: initial;
-    overflow-y: scroll;
-    overflow-x: hidden !important;
+    max-height: 400px;
+    width: 200px; /* just setting it very small it will resize to the input field*/
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+    z-index: 1000;
+    /*overflow-y: scroll;
+    overflow-x: hidden !important;*/
 }
 .ui-menu-item .ui-menu-item-wrapper.ui-state-active {
     background: #6693bc !important;
     font-weight: bold !important;
     color: #ffffff !important;
 } 
+.error{
+    border-radius:1px solid red;
+}
 
 
 .ui-menu-item a {

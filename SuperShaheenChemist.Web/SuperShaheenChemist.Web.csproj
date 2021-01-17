@@ -185,6 +185,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ProductAddViewModel.cs" />
     <Compile Include="ViewModels\ProductsNameBarcode.cs" />
+    <Compile Include="ViewModels\PurchaseViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Client\bootstrap\css\bootstrap-grid.css" />

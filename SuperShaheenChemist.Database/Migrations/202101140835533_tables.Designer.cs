@@ -7,13 +7,13 @@ namespace SuperShaheenChemist.Database.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class UnitQunatityColumnRemoved : IMigrationMetadata
+    public sealed partial class tables : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UnitQunatityColumnRemoved));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(tables));
         
         string IMigrationMetadata.Id
         {
-            get { return "202101080723409_UnitQunatityColumnRemoved"; }
+            get { return "202101140835533_tables"; }
         }
         
         string IMigrationMetadata.Source

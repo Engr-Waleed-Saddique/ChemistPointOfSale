@@ -7,13 +7,13 @@ namespace SuperShaheenChemist.Database.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class PrimaryForiegnKeyRelationAdded : IMigrationMetadata
+    public sealed partial class DatatypeChanged : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(PrimaryForiegnKeyRelationAdded));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(DatatypeChanged));
         
         string IMigrationMetadata.Id
         {
-            get { return "202101031151279_PrimaryForiegnKeyRelationAdded"; }
+            get { return "202101141034479_DatatypeChanged"; }
         }
         
         string IMigrationMetadata.Source

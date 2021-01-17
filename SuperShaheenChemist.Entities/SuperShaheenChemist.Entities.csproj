@@ -52,6 +52,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Cashier.cs" />
     <Compile Include="MedicineType.cs" />
+    <Compile Include="PurchaseProducts.cs" />
+    <Compile Include="SaleProducts.cs" />
+    <Compile Include="StockInventry.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

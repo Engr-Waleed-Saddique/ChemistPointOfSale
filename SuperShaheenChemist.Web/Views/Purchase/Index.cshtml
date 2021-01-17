@@ -18,86 +18,74 @@
                 <div class="box">
                     <div class="box-body ">
                         <h4 class="purchase-heading"> <i class="fa fa-check-circle"></i> Create Purchase Items</h4>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>Distributor:</label>
-                                    <input type="text" name="ProductName" value="" class="form-control input-lg" placeholder="e.g Panadol" reqiured="" />
-                                </div>
-                                <small>Name of the medicine or product ? </small>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>Bill No</label>
-                                    <input type="text" name="GenericName" value="" class="form-control input-lg" placeholder="e.g Paracetamol" reqiured="" />
-                                </div>
-                                <small>Name of the product ? </small>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>Upload Bill Image</label>
-                                    <input type="text" name="BatchNo" value="" class="form-control input-lg" placeholder="e.g Batch No" reqiured="" />
-                                </div>
-                                <small>Sku or Batch No ?  </small>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 ">
-                                <div class="form-group">
-                                    <label><i class="fa fa-search" aria-hidden="true"></i> <b>SEARCH ITEMS :</b></label>
-                                    <select name="search_area" class="form-control input-lg" id="barcode_scan_area" style="width: 100%;">
-                                    </select>
-                                    <input type="text" id="searchProduct" placeholder="Search Product By Name Or BarCode" class="form-control clearable" />
-                                    <small>Search through product name or Barcode </small> <br />
-                                    <small style="color:#c00;">Note : After changing MRP press enter to apply values. </small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="table-responsive">
-                                    <table class="table" id="purchaseItems">
-                                        <thead class="">
-                                            <tr>
-                                                <th>Product Name</th>
-                                                <th>Generic Name</th>
-                                                <th>Quantity</th>
-                                                <th>Price</th>
-                                                <th>Amount</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                        
                     </div>
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <div class="form-group">
+                                <label><i class="fa fa-search" aria-hidden="true"></i> <b>SEARCH ITEMS :</b></label>
+                                @*<select name="search_area" class="form-control input-lg" id="barcode_scan_area" style="width: 100%;">
+                                </select>*@
+                                <input type="text" id="searchProduct" placeholder="Search Product By Name Or BarCode" class="form-control clearable" />
+                                <small>Search through product name or Barcode </small> <br />
+                                <small style="color:#c00;">Note : After changing MRP press enter to apply values. </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table" id="purchaseItems">
+                                    <thead class="">
+                                        <tr>
+                                            <th>Product Name</th>
+                                            <th>Generic Name</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="items">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-right">
+                        <input id="submit" type="button" value="Save Purchase" class="btn btn-primary" />
+                    </div>
+
                 </div>
             </div>
         </div>
-        
+
     </section>
+    <script src="~/Client/dist/js/sweetalert.min.js"></script>
 </div>
 
 <script>
     $(document).ready(function () {
-
-        $('#searchProduct').hide();
-        $('#barcode_scan_area').click(function () {
-            if ($('#searchProduct').is(":hidden")) {
-                $('#searchProduct').show();
-                $('#searchProduct').focus();
-            }
-
-            else { 
-                $('#searchProduct').hide();
-                $('#searchProduct').blur();
-                
-             }
-             //$('#searchProduct').hide();
-            
+        var rowCount = $('#purchaseItems tbody tr').length;
+        if (rowCount<1) {
+            $("#submit").hide();
         }
-        );
+
+        //$('#searchProduct').hide();
+        //$('#searchProduct').on('change', function () {
+        //    if ($('#searchProduct').is(":hidden")) {
+        //        $('#searchProduct').show();
+        //        $('#searchProduct').focus();
+        //    }
+
+        //    else { 
+        //        $('#searchProduct').hide();
+        //        $('#searchProduct').blur();
+
+        //     }
+        //     //$('#searchProduct').hide();
+
+        //}
+        //);
         $('#searchProduct').autocomplete({
             source: function (request, response) {
 
@@ -123,12 +111,13 @@
                 //$('#searchProduct').hide();
                 //$('#barcode_scan_area').val(ui.item.value);
                 $('#searchProduct').val('');
-                $('#barcode_scan_area').focus();
-                $('#searchProduct').css("display", "none");
-                $("#barcode_scan_area").append('<option value="' + ui.item.value + '">' + ui.item.label + '</option>');
+                //$('#barcode_scan_area').focus();
+                //$('#searchProduct').css("display", "none");
+                //$("#barcode_scan_area").append('<option value="' + ui.item.value + '">' + ui.item.label + '</option>');
+
                 $product_id = ui.item.value;
                 addRecordToTable($product_id);
-                
+                $('#submit').show();
             },
             focus: function (event, ui) {
                 //event.preventDefault();
@@ -145,23 +134,73 @@
                 success: function (data) {
                     //alert(JSON.stringify(data));
                     $("#purchaseItems").append('<tr class="rowSelector" style="background-color: white;"><td>' + data.ProductName + '</td><td>'
-                        + data.GenericName + '</td><td><input id="qunatity" type="number"/></td><td>' + data.PackCost + '</td><td id="amount">0</td><tr>');
+                        + data.GenericName + '</td><td><input class="qunatity" type="number"/></td><td>' + data.PackCost + '</td><td id="amount">0</td><td><button class="remove btn btn-danger">Remove</button> </td><td><input type="hidden" class="prodId" value="' + data.Id + '"></td></tr>');
                     $("#barcode_scan_area").empty();
                 }
             });
-            
+
         }
         $('#purchaseItems').on('change', '.rowSelector', function () {
-            
+
             //alert($(this).find('td:eq(3)').text());
             var input = $(this).find('input').val();
             var value = $(this).find('td:eq(3)').text();
             $(this).find('td:eq(4)').html(input * value);
+            $('input', this).removeClass('error');
 
 
         });
+        $('#purchaseItems').on('click', '.remove', function () {
+            $(this).parents('tr').remove();
+
+            var rowCount = $('#purchaseItems tbody tr').length;
+            if (rowCount < 1) {
+                $("#submit").hide();
+            }
 
 
+
+
+        }
+        );
+
+
+        $('#submit').click(function () {
+            var errorCount=0;
+            //Validation
+            $('#purchaseItems tbody tr').each(function (index, value) {
+                if ($('.qunatity', this).val().length == 0) {
+                    $('input', this).addClass('error');
+                    errorCount++;
+                }
+            });
+            //validation end
+            if (errorCount == 0) {
+                var list = [];
+                $('#purchaseItems tbody tr').each(function (index, value) {
+                    var purchaseItem = {
+                        ProductID: parseInt($(this).find('input.prodId').val()),
+                        Quantity: parseInt($(this).find('input.qunatity').val()),
+                        TotalAmount: parseInt($(this).find('td:eq(4)').text())
+                    }
+                    list.push(purchaseItem);
+                });
+                //alert(JSON.stringify(list));
+                $.ajax({
+                    type: "POST",
+                    url: "/Purchase/SavePurchase",
+                    data: { purchaseItems: JSON.stringify(list) },
+                    contenttype: "application/json",
+                    success: function (data) {
+                        $("#items").empty();
+                        swal("Purchased Product Added Successfully!", "Purchase Product Added Successfully!", "success");
+                    },
+                    error: function (data) {
+                        alert("Data transfer failed");
+                    }
+                });
+            }
+        });
     });
 
 </script>

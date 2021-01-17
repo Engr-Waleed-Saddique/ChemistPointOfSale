@@ -72,6 +72,14 @@ namespace SuperShaheenChemist.Services
                 context.SaveChanges();
             }
         }
+        public decimal ProductPrice(int ID)
+        {
+            using (var context = new CBContext())
+            {
+                Product product=context.Products.Find(ID);
+                return product.PackCost;
+            }
+        }
 
         public Product GetProduct(int ID)
         {
@@ -86,6 +94,23 @@ namespace SuperShaheenChemist.Services
             {
                 context.Entry(product).State = EntityState.Modified;
                 context.SaveChanges();
+            }
+        }
+        public void PurchaseProduct(PurchaseProducts product)
+        {
+            using (var context = new CBContext())
+            {
+                //if (context.PurchaseProducts.Any(x => x.ProductId == product.ProductId))
+                //{
+                //    var purchaseRecord= context.PurchaseProducts.Where(x => x.ProductId == product.ProductId).FirstOrDefault();
+                //    purchaseRecord.Qty = purchaseRecord.Qty+product.Qty;
+                //    context.PurchaseProducts.Attach(purchaseRecord);
+                //    context.Entry(purchaseRecord).Property(x => x.Qty).IsModified = true;
+                //    context.SaveChanges();
+                //}
+                context.PurchaseProducts.Add(product);
+                context.SaveChanges();
+                
             }
         }
     }

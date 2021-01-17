@@ -49,21 +49,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CBContext.cs" />
-    <Compile Include="Migrations\202012311119370_InitialDatabase.cs" />
-    <Compile Include="Migrations\202012311119370_InitialDatabase.Designer.cs">
-      <DependentUpon>202012311119370_InitialDatabase.cs</DependentUpon>
+    <Compile Include="Migrations\202101140835533_tables.cs" />
+    <Compile Include="Migrations\202101140835533_tables.Designer.cs">
+      <DependentUpon>202101140835533_tables.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202101031143453_MoreTablesAddedWithPFRelation.cs" />
-    <Compile Include="Migrations\202101031143453_MoreTablesAddedWithPFRelation.Designer.cs">
-      <DependentUpon>202101031143453_MoreTablesAddedWithPFRelation.cs</DependentUpon>
+    <Compile Include="Migrations\202101141008447_StockInventoryTableAdded.cs" />
+    <Compile Include="Migrations\202101141008447_StockInventoryTableAdded.Designer.cs">
+      <DependentUpon>202101141008447_StockInventoryTableAdded.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202101031151279_PrimaryForiegnKeyRelationAdded.cs" />
-    <Compile Include="Migrations\202101031151279_PrimaryForiegnKeyRelationAdded.Designer.cs">
-      <DependentUpon>202101031151279_PrimaryForiegnKeyRelationAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101080723409_UnitQunatityColumnRemoved.cs" />
-    <Compile Include="Migrations\202101080723409_UnitQunatityColumnRemoved.Designer.cs">
-      <DependentUpon>202101080723409_UnitQunatityColumnRemoved.cs</DependentUpon>
+    <Compile Include="Migrations\202101141034479_DatatypeChanged.cs" />
+    <Compile Include="Migrations\202101141034479_DatatypeChanged.Designer.cs">
+      <DependentUpon>202101141034479_DatatypeChanged.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -79,17 +75,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202012311119370_InitialDatabase.resx">
-      <DependentUpon>202012311119370_InitialDatabase.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202101140835533_tables.resx">
+      <DependentUpon>202101140835533_tables.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101031143453_MoreTablesAddedWithPFRelation.resx">
-      <DependentUpon>202101031143453_MoreTablesAddedWithPFRelation.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202101141008447_StockInventoryTableAdded.resx">
+      <DependentUpon>202101141008447_StockInventoryTableAdded.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101031151279_PrimaryForiegnKeyRelationAdded.resx">
-      <DependentUpon>202101031151279_PrimaryForiegnKeyRelationAdded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101080723409_UnitQunatityColumnRemoved.resx">
-      <DependentUpon>202101080723409_UnitQunatityColumnRemoved.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202101141034479_DatatypeChanged.resx">
+      <DependentUpon>202101141034479_DatatypeChanged.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
