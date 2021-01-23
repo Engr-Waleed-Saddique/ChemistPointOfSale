@@ -49,17 +49,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CBContext.cs" />
-    <Compile Include="Migrations\202101140835533_tables.cs" />
-    <Compile Include="Migrations\202101140835533_tables.Designer.cs">
-      <DependentUpon>202101140835533_tables.cs</DependentUpon>
+    <Compile Include="Migrations\202101201502365_InitialCreate.cs" />
+    <Compile Include="Migrations\202101201502365_InitialCreate.Designer.cs">
+      <DependentUpon>202101201502365_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202101141008447_StockInventoryTableAdded.cs" />
-    <Compile Include="Migrations\202101141008447_StockInventoryTableAdded.Designer.cs">
-      <DependentUpon>202101141008447_StockInventoryTableAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101141034479_DatatypeChanged.cs" />
-    <Compile Include="Migrations\202101141034479_DatatypeChanged.Designer.cs">
-      <DependentUpon>202101141034479_DatatypeChanged.cs</DependentUpon>
+    <Compile Include="Migrations\202101230934541_NavigationPropertiesAdded.cs" />
+    <Compile Include="Migrations\202101230934541_NavigationPropertiesAdded.Designer.cs">
+      <DependentUpon>202101230934541_NavigationPropertiesAdded.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,14 +71,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202101140835533_tables.resx">
-      <DependentUpon>202101140835533_tables.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202101201502365_InitialCreate.resx">
+      <DependentUpon>202101201502365_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101141008447_StockInventoryTableAdded.resx">
-      <DependentUpon>202101141008447_StockInventoryTableAdded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101141034479_DatatypeChanged.resx">
-      <DependentUpon>202101141034479_DatatypeChanged.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202101230934541_NavigationPropertiesAdded.resx">
+      <DependentUpon>202101230934541_NavigationPropertiesAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

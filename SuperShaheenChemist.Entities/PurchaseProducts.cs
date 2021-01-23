@@ -14,12 +14,9 @@ namespace SuperShaheenChemist.Entities
         public int Id { get; set; }
         public DateTime Date { get; set; }
         public int ProductId { get; set; }
+        public virtual Product Product { get; set; }
         public int Qty { get; set; }
         public int TotalAmount { get; set; }
 
     }
 }
-
-
-
-

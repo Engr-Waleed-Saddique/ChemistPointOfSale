@@ -7,13 +7,13 @@ namespace SuperShaheenChemist.Database.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class tables : IMigrationMetadata
+    public sealed partial class NavigationPropertiesAdded : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(tables));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(NavigationPropertiesAdded));
         
         string IMigrationMetadata.Id
         {
-            get { return "202101140835533_tables"; }
+            get { return "202101230934541_NavigationPropertiesAdded"; }
         }
         
         string IMigrationMetadata.Source

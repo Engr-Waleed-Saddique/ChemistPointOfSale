@@ -174,6 +174,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\PurchaseController.cs" />
+    <Compile Include="Controllers\StockController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -186,6 +187,7 @@
     <Compile Include="ViewModels\ProductAddViewModel.cs" />
     <Compile Include="ViewModels\ProductsNameBarcode.cs" />
     <Compile Include="ViewModels\PurchaseViewModel.cs" />
+    <Compile Include="ViewModels\StockViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Client\bootstrap\css\bootstrap-grid.css" />
@@ -2134,6 +2136,8 @@
     <Content Include="Views\Product\add_new_product.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Purchase\Index.cshtml" />
+    <Content Include="Views\Stock\Index.cshtml" />
+    <Content Include="Views\Purchase\Purchases.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2162,6 +2166,10 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SuperShaheenChemist.Database\SuperShaheenChemist.Database.csproj">
+      <Project>{4e7a896c-817d-4e5f-8f84-4281d01859bd}</Project>
+      <Name>SuperShaheenChemist.Database</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SuperShaheenChemist.Entities\SuperShaheenChemist.Entities.csproj">
       <Project>{1ae94b89-a877-4011-b803-b9dc33d1eac5}</Project>
       <Name>SuperShaheenChemist.Entities</Name>

@@ -113,5 +113,39 @@ namespace SuperShaheenChemist.Services
                 
             }
         }
+
+        public List<PurchaseProducts> PurchaseSearchByDate(string fromDate,string toDate)
+        {
+            DateTime fDate = Convert.ToDateTime(fromDate);
+            DateTime tDate = Convert.ToDateTime(toDate).AddDays(1);
+            var purchases = new List<PurchaseProducts>();
+            using (var context=new CBContext())
+            {
+                purchases = context.PurchaseProducts.Where(x => x.Date >= fDate && x.Date <= tDate).Include(x=>x.Product).ToList();
+
+                //var data = (from c in context.Products
+                //            from p in context.PurchaseProducts.Where(x => x.Date >= fDate && x.Date <= tDate)
+                //            select new
+                //            {
+                //                ProductName=c.ProductName,
+                //                Date=p.Date,
+                //                Qty=p.Qty,
+                //                TotalAmount=p.TotalAmount,
+
+
+                //            }
+                //            );
+            }
+            return purchases;
+        }
+        public Product GetProductInfo(int ID)
+        {
+            using (var context = new CBContext())
+            {
+
+                return context.Products.Find(ID);
+
+            }
+        }
     }
 }

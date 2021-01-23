@@ -15,4 +15,13 @@ namespace SuperShaheenChemist.Web.ViewModels
         public int TotalAmount { get; set; }
 
     }
+    public class PurchaseTableViewModel
+    {
+        public int Qty { get; set; }
+        public int TotalAmount { get; set; }
+        public string ProductName { get; set; }
+        public string GenericName { get; set; }
+        public string Date { get; set; }
+    }
+
 }
