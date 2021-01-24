@@ -147,5 +147,30 @@ namespace SuperShaheenChemist.Services
 
             }
         }
+
+        public List<StockInventry> OutOfStockProducts()
+        {
+            List<StockInventry> stock = new List<StockInventry>();
+            List<StockInventry> filterstock = new List<StockInventry>();
+            using (var context=new CBContext())
+            {
+              stock=context.StockInventries.Include(x => x.Product).ToList();
+              foreach(var s in stock)
+                {
+                    if(s.Stock<s.Product.MinStock)
+                    {
+                        filterstock.Add(s);
+                    }
+                }
+            }
+            return filterstock;
+        }
+        public List<StockInventry> getStock()
+        {
+            using(var context=new CBContext())
+            {
+                return context.StockInventries.Include(x=>x.Product).ToList();
+            }
+        }
     }
 }

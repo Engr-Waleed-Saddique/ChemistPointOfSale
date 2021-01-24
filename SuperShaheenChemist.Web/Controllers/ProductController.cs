@@ -110,6 +110,18 @@ namespace SuperShaheenChemist.Web.Controllers
             return new JsonResult { Data = new { status = true } };
             
         }
+        public ActionResult OutOfStock()
+        {
+            var products=ProductsService.Instance.OutOfStockProducts();
+            ViewBag.data = products;
+            return View();
+        }
+        public ActionResult Stock()
+        {
+            var products = ProductsService.Instance.getStock();
+            ViewBag.data = products;
+            return View();
+        }
 
     }
 }

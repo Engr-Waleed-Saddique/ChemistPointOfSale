@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Data.Entity;
 namespace SuperShaheenChemist.Services
 {
     public class StockService
@@ -34,8 +34,8 @@ namespace SuperShaheenChemist.Services
                 {
                     var data = context.StockInventries.Where(x => x.ProductId == stock.ProductId).FirstOrDefault();
                     data.Stock = data.Stock + stock.Stock;
-                    data.Received = data.Received + stock.Received;
-                    data.TotalAmount = data.TotalAmount + stock.TotalAmount;
+                    data.Received = (data.Received + stock.Received);
+                    data.TotalAmount = (data.TotalAmount + stock.TotalAmount);
                     context.Entry(data).State = System.Data.Entity.EntityState.Modified;
                     context.SaveChanges();
                 }
@@ -47,12 +47,22 @@ namespace SuperShaheenChemist.Services
                 
             }
         }
-        //public int stockValue(int pId)
-        //{
-        //    using (var context=new CBContext())
-        //    {
-        //        context.StockInventries.
-        //    }
-        //}
+        public List<StockInventry> GetExpiryStock()
+        {
+            List<StockInventry> stock = new List<StockInventry>();
+            List<StockInventry> filterstock = new List<StockInventry>();
+            using (var context=new CBContext())
+            {
+                stock=context.StockInventries.Include(x=>x.Product).ToList();
+                foreach (var s in stock)
+                {
+                    if (DateTime.Now > s.Product.ExpiryDate)
+                    {
+                        filterstock.Add(s);
+                    }
+                }
+            }
+            return filterstock;
+        }
     }
 }

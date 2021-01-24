@@ -2138,6 +2138,9 @@
     <Content Include="Views\Purchase\Index.cshtml" />
     <Content Include="Views\Stock\Index.cshtml" />
     <Content Include="Views\Purchase\Purchases.cshtml" />
+    <Content Include="Views\Product\OutOfStock.cshtml" />
+    <Content Include="Views\Product\Stock.cshtml" />
+    <Content Include="Views\Stock\ExpiredStock.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

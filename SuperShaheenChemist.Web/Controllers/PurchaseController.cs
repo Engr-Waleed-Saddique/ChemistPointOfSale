@@ -34,7 +34,7 @@ namespace SuperShaheenChemist.Web.Controllers
                 //Adding Product data in Purchase with DateWise
                 
                 
-                    Product p=ProductsService.Instance.GetProductInfo(pItems.ProductID);
+                Product p=ProductsService.Instance.GetProductInfo(pItems.ProductID);
                 temp.ProductId = p.Id;
                 temp.Qty = pItems.Quantity;
                 temp.Date = DateTime.Now;

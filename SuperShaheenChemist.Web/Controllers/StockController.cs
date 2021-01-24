@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SuperShaheenChemist.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,6 +15,11 @@ namespace SuperShaheenChemist.Web.Controllers
             return View();
 
         }
+        public ActionResult ExpiredStock()
+        {
+            var stock = StockService.Instance.GetExpiryStock();
+            ViewBag.data = stock;
+            return View();
+        }
     }
 }
-

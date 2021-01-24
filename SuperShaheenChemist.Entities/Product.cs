@@ -33,5 +33,6 @@ namespace SuperShaheenChemist.Entities
         public decimal PackRetailCost { get; set; } 
         public decimal SalesTax { get; set; }
         public List<PurchaseProducts> Products { get; set; }
+        public List<StockInventry> StockInventry { get; set; }
     }
 }

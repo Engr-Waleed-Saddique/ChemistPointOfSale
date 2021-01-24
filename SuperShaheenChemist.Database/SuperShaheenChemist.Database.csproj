@@ -57,6 +57,14 @@
     <Compile Include="Migrations\202101230934541_NavigationPropertiesAdded.Designer.cs">
       <DependentUpon>202101230934541_NavigationPropertiesAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101240653445_PFKeyRelationAddedProductAndStockInventries.cs" />
+    <Compile Include="Migrations\202101240653445_PFKeyRelationAddedProductAndStockInventries.Designer.cs">
+      <DependentUpon>202101240653445_PFKeyRelationAddedProductAndStockInventries.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101240656207_ProductNavigationPropertyAdded.cs" />
+    <Compile Include="Migrations\202101240656207_ProductNavigationPropertyAdded.Designer.cs">
+      <DependentUpon>202101240656207_ProductNavigationPropertyAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -76,6 +84,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101230934541_NavigationPropertiesAdded.resx">
       <DependentUpon>202101230934541_NavigationPropertiesAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101240653445_PFKeyRelationAddedProductAndStockInventries.resx">
+      <DependentUpon>202101240653445_PFKeyRelationAddedProductAndStockInventries.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101240656207_ProductNavigationPropertyAdded.resx">
+      <DependentUpon>202101240656207_ProductNavigationPropertyAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
