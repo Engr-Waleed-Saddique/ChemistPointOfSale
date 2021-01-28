@@ -43,7 +43,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
                 <ul>
                     <li>
-                        <a href="https://medix.spantiklab.com/homepage">
+                        <a href="/home/index">
                             <i class="sub-icon-settings far fa-circle"></i>
                             Dashboard
                         </a>
@@ -77,12 +77,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             Out of stock
                         </a>
                     </li>
-                    <li>
+                    @*<li>
                         <a href="https://medix.spantiklab.com/product/recent_list">
                             <i class="sub-icon-settings far fa-circle"></i>
                             Recent Expired
                         </a>
-                    </li>
+                    </li>*@
                     <li>
                         <a href="/stock/ExpiredStock">
                             <i class="sub-icon-settings far fa-circle"></i>
@@ -95,15 +95,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             Stock
                         </a>
                     </li>
-                    <li>
+                    @*<li>
                         <a href="https://medix.spantiklab.com/add_stock">
                             <i class="sub-icon-settings far fa-circle"></i>
                             Upload Stock
                         </a>
-                    </li>
+                    </li>*@
                 </ul>
             </li>
-            <li>
+            @*<li>
                 <a href="javascript:void(0)">
                     <i class="fa fa-balance-scale icon-settings" aria-hidden="true">
                     </i>
@@ -137,8 +137,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </a>
                     </li>
                 </ul>
-            </li>
-            <li>
+            </li>*@
+            @*<li>
                 <a href="javascript:void(0)">
                     <i class="fa fa-cubes icon-settings" aria-hidden="true">
                     </i>
@@ -202,7 +202,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li>*@
             <li>
                 <a href="javascript:void(0)">
                     <i class="fa fa-clipboard icon-settings" aria-hidden="true">
@@ -254,19 +254,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </a>
                     </li>
                     <li>
-                        <a href="/Purchase/Index">
-                            <i class="sub-icon-settings far fa-circle"></i>
-                            Add Purchase
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://medix.spantiklab.com/purchase/return_list">
+                        <a href="/Purchase/ReturnPurchase">
                             <i class="sub-icon-settings far fa-circle"></i>
                             Purchase return
                         </a>
                     </li>
                     <li>
-                        <a href="https://medix.spantiklab.com/Purchase_order">
+                        <a href="/Purchase/PurchaseOrder">
                             <i class="sub-icon-settings far fa-circle"></i>
                             Purchase Order
                         </a>
@@ -576,7 +570,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 </div>
                 <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
+                    <ul class="nav navbar-nav">+/
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
                         <li>@Html.ActionLink("About", "About", "Home")</li>
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>

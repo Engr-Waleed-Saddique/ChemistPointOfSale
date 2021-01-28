@@ -2141,6 +2141,11 @@
     <Content Include="Views\Product\OutOfStock.cshtml" />
     <Content Include="Views\Product\Stock.cshtml" />
     <Content Include="Views\Stock\ExpiredStock.cshtml" />
+    <Content Include="Views\Purchase\ReturnPurchase.cshtml" />
+    <Content Include="Views\Purchase\PurchaseOrder.cshtml" />
+    <Content Include="Views\Purchase\AddPurchaseOrder.cshtml" />
+    <Content Include="Views\Purchase\ViewPurchaseOrderDetails.cshtml" />
+    <Content Include="Views\Purchase\GetPurchaseProductDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

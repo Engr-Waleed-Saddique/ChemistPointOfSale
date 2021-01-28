@@ -52,7 +52,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Cashier.cs" />
     <Compile Include="MedicineType.cs" />
+    <Compile Include="PurchaseOrder.cs" />
+    <Compile Include="PurchaseOrderMaster.cs" />
     <Compile Include="PurchaseProducts.cs" />
+    <Compile Include="PurchaseProductsMaster.cs" />
+    <Compile Include="ReturnPurchase.cs" />
     <Compile Include="SaleProducts.cs" />
     <Compile Include="StockInventry.cs" />
   </ItemGroup>

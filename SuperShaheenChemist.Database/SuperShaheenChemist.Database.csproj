@@ -65,6 +65,38 @@
     <Compile Include="Migrations\202101240656207_ProductNavigationPropertyAdded.Designer.cs">
       <DependentUpon>202101240656207_ProductNavigationPropertyAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101261005151_ReturnPurchaseTableAdded.cs" />
+    <Compile Include="Migrations\202101261005151_ReturnPurchaseTableAdded.Designer.cs">
+      <DependentUpon>202101261005151_ReturnPurchaseTableAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101261006332_ReturnPurchaseTableAdded1.cs" />
+    <Compile Include="Migrations\202101261006332_ReturnPurchaseTableAdded1.Designer.cs">
+      <DependentUpon>202101261006332_ReturnPurchaseTableAdded1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101261020033_returnAdded.cs" />
+    <Compile Include="Migrations\202101261020033_returnAdded.Designer.cs">
+      <DependentUpon>202101261020033_returnAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101271314342_purchaseOrderTableAdded.cs" />
+    <Compile Include="Migrations\202101271314342_purchaseOrderTableAdded.Designer.cs">
+      <DependentUpon>202101271314342_purchaseOrderTableAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101271456364_totalAmountColumnRemoved.cs" />
+    <Compile Include="Migrations\202101271456364_totalAmountColumnRemoved.Designer.cs">
+      <DependentUpon>202101271456364_totalAmountColumnRemoved.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101271616158_tableAdded.cs" />
+    <Compile Include="Migrations\202101271616158_tableAdded.Designer.cs">
+      <DependentUpon>202101271616158_tableAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101280755386_transactionIdAdded.cs" />
+    <Compile Include="Migrations\202101280755386_transactionIdAdded.Designer.cs">
+      <DependentUpon>202101280755386_transactionIdAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101280802550_PurchaseProductMasterAdded.cs" />
+    <Compile Include="Migrations\202101280802550_PurchaseProductMasterAdded.Designer.cs">
+      <DependentUpon>202101280802550_PurchaseProductMasterAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -90,6 +122,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101240656207_ProductNavigationPropertyAdded.resx">
       <DependentUpon>202101240656207_ProductNavigationPropertyAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101261005151_ReturnPurchaseTableAdded.resx">
+      <DependentUpon>202101261005151_ReturnPurchaseTableAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101261006332_ReturnPurchaseTableAdded1.resx">
+      <DependentUpon>202101261006332_ReturnPurchaseTableAdded1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101261020033_returnAdded.resx">
+      <DependentUpon>202101261020033_returnAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101271314342_purchaseOrderTableAdded.resx">
+      <DependentUpon>202101271314342_purchaseOrderTableAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101271456364_totalAmountColumnRemoved.resx">
+      <DependentUpon>202101271456364_totalAmountColumnRemoved.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101271616158_tableAdded.resx">
+      <DependentUpon>202101271616158_tableAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101280755386_transactionIdAdded.resx">
+      <DependentUpon>202101280755386_transactionIdAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101280802550_PurchaseProductMasterAdded.resx">
+      <DependentUpon>202101280802550_PurchaseProductMasterAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

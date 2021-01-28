@@ -7,17 +7,14 @@ using System.Threading.Tasks;
 
 namespace SuperShaheenChemist.Entities
 {
-    public class StockInventry
+    public class ReturnPurchase
     {
         [Key]
         public int Id { get; set; }
+        public DateTime Date { get; set; }
         public int ProductId { get; set; }
         public virtual Product Product { get; set; }
-        public int Received { get; set; }
-        public int Sale { get; set; }
-        public int Stock { get; set; }
-        public int Return { get; set; }
-        public decimal Price { get; set; }
+        public int Qty { get; set; }
         public int TotalAmount { get; set; }
     }
 }

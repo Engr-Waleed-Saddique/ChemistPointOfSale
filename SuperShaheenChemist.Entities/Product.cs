@@ -34,5 +34,6 @@ namespace SuperShaheenChemist.Entities
         public decimal SalesTax { get; set; }
         public List<PurchaseProducts> Products { get; set; }
         public List<StockInventry> StockInventry { get; set; }
+        public List<PurchaseOrder> PurchaseOrder { get; set; }
     }
 }

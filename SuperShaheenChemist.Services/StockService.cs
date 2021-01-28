@@ -47,6 +47,26 @@ namespace SuperShaheenChemist.Services
                 
             }
         }
+
+
+
+        public void ReturnStock(StockInventry stock)
+        {
+            using (var context = new CBContext())
+            {
+                if (context.StockInventries.Any(x => x.ProductId == stock.ProductId && x.Stock>stock.Stock))
+                {
+                    var data = context.StockInventries.Where(x => x.ProductId == stock.ProductId).FirstOrDefault();
+                    data.Stock = (data.Stock - stock.Stock);
+                    data.Return = (data.Return + stock.Return);
+                    data.TotalAmount = (data.TotalAmount - stock.TotalAmount);
+                    context.Entry(data).State = System.Data.Entity.EntityState.Modified;
+                    context.SaveChanges();
+                    
+                }
+            }
+        }
+
         public List<StockInventry> GetExpiryStock()
         {
             List<StockInventry> stock = new List<StockInventry>();

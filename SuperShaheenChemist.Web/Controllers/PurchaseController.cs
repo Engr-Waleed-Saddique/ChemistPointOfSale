@@ -28,7 +28,9 @@ namespace SuperShaheenChemist.Web.Controllers
             var result = JsonConvert.DeserializeObject<List<PurchaseViewModel>>(purchaseItems);
             PurchaseProducts temp = new PurchaseProducts();
             StockInventry stock = new StockInventry();
+            int transactionId = PurchaseService.Instance.PurchaseProductMasterMaxID() + 1;
 
+            int totolAmount = 0;
             foreach (var pItems in result)
             {
                 //Adding Product data in Purchase with DateWise
@@ -39,8 +41,9 @@ namespace SuperShaheenChemist.Web.Controllers
                 temp.Qty = pItems.Quantity;
                 temp.Date = DateTime.Now;
                 temp.TotalAmount = pItems.TotalAmount;
+                temp.TransactionId = transactionId;
                 ProductsService.Instance.PurchaseProduct(temp);
-
+                totolAmount = totolAmount + pItems.TotalAmount;
                 //Adding Products data in stock
 
                 stock.ProductId = pItems.ProductID;
@@ -52,7 +55,14 @@ namespace SuperShaheenChemist.Web.Controllers
                 StockService.Instance.AddStock(stock);
 
             }
+            PurchaseProductsMaster ob = new PurchaseProductsMaster();
+            ob.Date = DateTime.Now;
+            ob.CreatedBy = "Admin";
+            ob.TotalAmount = totolAmount;
+            ob.TransactionId = transactionId;
+            PurchaseService.Instance.AddTransaction(ob);
             return Json("Success");
+
         }
         public JsonResult GetProductList(string productName)
         {
@@ -68,8 +78,31 @@ namespace SuperShaheenChemist.Web.Controllers
             product = ProductsService.Instance.GetProductById(productId);
             return Json(product,JsonRequestBehavior.AllowGet);
         }
-        public ActionResult Purchases()
+        public ActionResult Purchases(string Datefrom,string Dateto)
         {
+            if (!string.IsNullOrEmpty(Dateto) && !string.IsNullOrEmpty(Datefrom))
+            {
+                ViewBag.data = PurchaseService.Instance.GetAllPurchaseRecordsByDate(Datefrom,Dateto);
+            }
+            else
+            {
+                ViewBag.data = PurchaseService.Instance.GetAllPurchaseRecords();
+            }
+            return View();
+        }
+        public ActionResult GetPurchaseProductDetails(int id)
+        {
+            var products=PurchaseService.Instance.PurchaseProductsDetails(id);
+            int totalAmount = 0;
+            DateTime orderDate = new DateTime();
+            foreach (var item in products)
+            {
+                totalAmount = (int)(totalAmount + item.TotalAmount);
+                orderDate = item.Date;
+            }
+            ViewBag.totalAmount = totalAmount;
+            ViewBag.data = products;
+            ViewBag.OrderDate = orderDate.ToString("dd/M/yyyy", CultureInfo.InvariantCulture);
             return View();
         }
         public JsonResult GetData(JqueryDatatableParam param,string fromDate, string toDate)
@@ -105,63 +138,112 @@ namespace SuperShaheenChemist.Web.Controllers
         }
 
 
+        public ActionResult ReturnPurchase()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ReturnPurchase(string purchaseItems)
+        {
+            var result = JsonConvert.DeserializeObject<List<ReturnViewModel>>(purchaseItems);
+            ReturnPurchase temp = new ReturnPurchase();
+            StockInventry stock = new StockInventry();
+            int errorCount = 0;
 
+            foreach (var pItems in result)
+            {
+                //Adding Product data in Purchase with DateWise
+                Product p = ProductsService.Instance.GetProductInfo(pItems.ProductID);
+                temp.ProductId = p.Id;
+                temp.Qty = pItems.Quantity;
+                temp.Date = DateTime.Now;
+                temp.TotalAmount = pItems.TotalAmount;
+                ProductsService.Instance.ReturnPurchase(temp);
+                if(ProductsService.Instance.CheckStockForProductReturn(temp))
+                {
+                    //Retruning Products from Stock
+                    stock.ProductId = pItems.ProductID;
+                    stock.Price = ProductsService.Instance.ProductPrice(pItems.ProductID);
+                    stock.Stock = pItems.Quantity;
+                    stock.TotalAmount = pItems.TotalAmount;
+                    stock.Return = pItems.Quantity;
+                    StockService.Instance.ReturnStock(stock);
+                }
+                else
+                {
+                    errorCount++;
+                }
+               
+            }
+            return Json(errorCount);
+        }
+        public ActionResult PurchaseOrder(string FromDate,string ToDate)
+        {
+            
+            if (!string.IsNullOrEmpty(FromDate) && !string.IsNullOrEmpty(ToDate))
+            {
+                return View(PurchaseService.Instance.SearchByDate(FromDate, ToDate));
+                //ViewBag.data = PurchaseService.Instance.SearchByDate(FromDate, ToDate);
+            }
+            else
+            {
+                //ViewBag.data = PurchaseService.Instance.GetAllPurchaseOrders();
+                return View(PurchaseService.Instance.GetAllPurchaseOrders());
+            }
+            
+        }
+        
+        public ActionResult AddPurchaseOrder()
+        {
+            return View();
+        }
+        public ActionResult ViewPurchaseOrderDetails(int id)
+        {
+            List<PurchaseOrder> products = new List<PurchaseOrder>();
+            products=PurchaseService.Instance.PurchaseOrderDetials(id);
+            int totalAmount = 0;
+            DateTime orderDate = new DateTime();
+            foreach(var item in products)
+            {
+                totalAmount = (int)(totalAmount + item.Amount);
+                orderDate = item.Date;
+            }
+            ViewBag.totalAmount = totalAmount;
+            ViewBag.data = products;
+            ViewBag.OrderDate = orderDate.ToString("dd/M/yyyy", CultureInfo.InvariantCulture);
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddItemsToOrder()
+        {
+            return Json("Success");
+        }
 
-
-        //public ActionResult GetData(JqueryDatatableParam param)
-        //{
-        //    var products = ProductsService.Instance.PurchaseSearchByDate(fromDate, toDate);
-
-        //    //Searching
-        //    if (!string.IsNullOrEmpty(param.sSearch))
-        //    {
-        //        products = products.Where(x => x.ProductName.ToLower().Contains(param.sSearch.ToLower())
-        //                                      || x.GenericName.ToLower().Contains(param.sSearch.ToLower())
-        //                                      || x.BatchNo.ToLower().Contains(param.sSearch.ToLower())
-        //                                      || x.BarCode.ToLower().Contains(param.sSearch.ToLower())
-        //                                      || x.Location.ToLower().Contains(param.sSearch.ToLower())
-        //                                      || x.ExpiryDate.ToString("dd'/'MM'/'yyyy").ToLower().Contains(param.sSearch.ToLower())).ToList();
-        //    }
-
-        //    //Sorting
-        //    var sortColumnIndex = Convert.ToInt32(HttpContext.Request.QueryString["iSortCol_0"]);
-        //    var sortDirection = HttpContext.Request.QueryString["sSortDir_0"];
-        //    if (sortColumnIndex == 3)
-        //    {
-        //        products = sortDirection == "asc" ? products.OrderBy(c => c.ProductName).ToList() : products.OrderByDescending(c => c.ProductName).ToList();
-        //    }
-        //    else if (sortColumnIndex == 4)
-        //    {
-        //        products = sortDirection == "asc" ? products.OrderBy(c => c.GenericName).ToList() : products.OrderByDescending(c => c.GenericName).ToList();
-        //    }
-        //    else if (sortColumnIndex == 5)
-        //    {
-        //        products = sortDirection == "asc" ? products.OrderBy(c => c.PackRetailCost).ToList() : products.OrderByDescending(c => c.PackRetailCost).ToList();
-        //    }
-        //    else
-        //    {
-        //        Func<Product, string> orderingFunction = e => sortColumnIndex == 0 ? e.ProductName : sortColumnIndex == 1 ? e.Location : e.Location;
-
-        //        products = sortDirection == "asc" ? products.OrderBy(orderingFunction).ToList() : products.OrderByDescending(orderingFunction).ToList();
-        //    }
-
-        //    //Pagination
-        //    var displayResult = products.Skip(param.iDisplayStart)
-        //       .Take(param.iDisplayLength).ToList();
-        //    var totalRecords = products.Count();
-
-
-        //    //Sending data 
-        //    return Json(new
-        //    {
-        //        param.sEcho,
-        //        iTotalRecords = totalRecords,
-        //        iTotalDisplayRecords = totalRecords,
-        //        aaData = displayResult
-        //    }, JsonRequestBehavior.AllowGet);
-
-        //}
-
-
+        [HttpPost]
+        public ActionResult SavePurchaseOrder(string purchaseItems,string total)
+        {
+            var result = JsonConvert.DeserializeObject<List<PurchaseViewModel>>(purchaseItems);
+            PurchaseOrder temp = new PurchaseOrder();
+            //StockInventry stock = new StockInventry();
+            int ordernumber = PurchaseService.Instance.PurchaseOrder()+1;
+            foreach (var pItems in result)
+            {
+                //Adding Product data in Purchase with DateWise
+                temp.ProductId = pItems.ProductID;
+                temp.Quantity = pItems.Quantity;
+                temp.Date = DateTime.Now;
+                temp.Amount = pItems.TotalAmount;
+                temp.CreatedBy = "Admin";
+                temp.PurchaseOrderNo = ordernumber;
+                PurchaseService.Instance.AddPurchaseOrder(temp);
+            }
+            PurchaseOrderMaster obj = new PurchaseOrderMaster();
+            obj.Date = DateTime.Now;
+            obj.CreatedBy = "Admin";
+            obj.OrderNo = ordernumber;
+            obj.totalAmount = int.Parse(total);
+            PurchaseService.Instance.AddIntoMasterOrder(obj);
+            return Json("Success");
+        }
     }
 }

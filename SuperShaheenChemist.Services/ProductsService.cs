@@ -113,6 +113,29 @@ namespace SuperShaheenChemist.Services
                 
             }
         }
+        public void ReturnPurchase(ReturnPurchase product)
+        {
+            using (var context = new CBContext())
+            {
+                if (context.StockInventries.Any(x => x.ProductId == product.ProductId && x.Stock > product.Qty)) 
+                {
+                    context.ReturnPurchases.Add(product);
+                    context.SaveChanges();
+                }
+            }
+        }
+        public bool CheckStockForProductReturn(ReturnPurchase product)
+        {
+                using (var context = new CBContext())
+                if (context.StockInventries.Any(x => x.ProductId == product.ProductId && x.Stock > product.Qty))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+        }
 
         public List<PurchaseProducts> PurchaseSearchByDate(string fromDate,string toDate)
         {
@@ -122,19 +145,6 @@ namespace SuperShaheenChemist.Services
             using (var context=new CBContext())
             {
                 purchases = context.PurchaseProducts.Where(x => x.Date >= fDate && x.Date <= tDate).Include(x=>x.Product).ToList();
-
-                //var data = (from c in context.Products
-                //            from p in context.PurchaseProducts.Where(x => x.Date >= fDate && x.Date <= tDate)
-                //            select new
-                //            {
-                //                ProductName=c.ProductName,
-                //                Date=p.Date,
-                //                Qty=p.Qty,
-                //                TotalAmount=p.TotalAmount,
-
-
-                //            }
-                //            );
             }
             return purchases;
         }
