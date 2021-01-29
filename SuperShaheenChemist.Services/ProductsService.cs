@@ -54,6 +54,7 @@ namespace SuperShaheenChemist.Services
                 return context.Products.Where(product => product.Id == id).FirstOrDefault();
             }
         }
+
         public List<Product> GetProductsNameBarcode(string productName)
         {
             using (var context = new CBContext())

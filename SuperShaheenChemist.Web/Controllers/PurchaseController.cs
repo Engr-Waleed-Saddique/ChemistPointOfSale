@@ -68,8 +68,8 @@ namespace SuperShaheenChemist.Web.Controllers
         {
             IEnumerable<Product> products = new List<Product>();
             products = ProductsService.Instance.GetProducts();
-            var p= products.Where(x => x.ProductName.ToLower().Contains(productName.ToLower())
-            || x.BarCode.ToLower().Contains(productName.ToLower())).Select(x => new {productID =x.Id, ProductName=x.ProductName });
+            var p = products.Where(x => x.ProductName.ToLower().Contains(productName.ToLower())
+             || x.BarCode.ToLower().Contains(productName.ToLower())).Select(x => new { productID = x.Id, ProductName = x.ProductName }).GroupBy(x=>x.ProductName).Select(x=>x.FirstOrDefault());
             return Json(p, JsonRequestBehavior.AllowGet);
         }
         public JsonResult getProduct(int productId)

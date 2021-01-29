@@ -171,6 +171,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\PurchaseController.cs" />
@@ -187,6 +188,7 @@
     <Compile Include="ViewModels\ProductAddViewModel.cs" />
     <Compile Include="ViewModels\ProductsNameBarcode.cs" />
     <Compile Include="ViewModels\PurchaseViewModel.cs" />
+    <Compile Include="ViewModels\SaleViewModel.cs" />
     <Compile Include="ViewModels\StockViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2146,6 +2148,7 @@
     <Content Include="Views\Purchase\AddPurchaseOrder.cshtml" />
     <Content Include="Views\Purchase\ViewPurchaseOrderDetails.cshtml" />
     <Content Include="Views\Purchase\GetPurchaseProductDetails.cshtml" />
+    <Content Include="Views\Invoice\CreateInvoice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
