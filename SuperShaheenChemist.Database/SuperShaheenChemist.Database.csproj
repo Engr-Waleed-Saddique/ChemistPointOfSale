@@ -97,6 +97,10 @@
     <Compile Include="Migrations\202101280802550_PurchaseProductMasterAdded.Designer.cs">
       <DependentUpon>202101280802550_PurchaseProductMasterAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102020602440_OrderItemTableMoreColumnsAdded.cs" />
+    <Compile Include="Migrations\202102020602440_OrderItemTableMoreColumnsAdded.Designer.cs">
+      <DependentUpon>202102020602440_OrderItemTableMoreColumnsAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -146,6 +150,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101280802550_PurchaseProductMasterAdded.resx">
       <DependentUpon>202101280802550_PurchaseProductMasterAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102020602440_OrderItemTableMoreColumnsAdded.resx">
+      <DependentUpon>202102020602440_OrderItemTableMoreColumnsAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

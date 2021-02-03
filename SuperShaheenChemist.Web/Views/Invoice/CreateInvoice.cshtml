@@ -20,7 +20,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label><i class="fa fa-search" aria-hidden="true"></i> <b>SEARCH ITEMS TO RETURN :</b></label>
+                <label><i class="fa fa-search" aria-hidden="true"></i> <b>SEARCH ITEMS TO SALE :</b></label>
                 <input type="text" id="searchProduct" placeholder="Search Product By Name Or BarCode" class="form-control clearable" />
                 <small>Search through product name or Barcode </small> <br />
             </div>
@@ -40,6 +40,7 @@
                             <th>Batch No</th>
                             <th>Price</th>
                             <th>Qty</th>
+                            <th>Loose</th>
                             <th>Expiry</th>
                             <th>Disc %</th>
                             <th>Tax</th>
@@ -52,9 +53,17 @@
             </div>
         </div>
     </div>
+    <div class="col-md-12 text-right">
+        <button id="submit" class="btn btn-primary"><i class="fa fa-print" aria-hidden="true"></i> Save & Print</button>
+    </div>
+
 </div>
 <script>
     $(document).ready(function () {
+        var rowCount = $('#purchaseItems tbody tr').length;
+        if (rowCount < 1) {
+            $("#submit").hide();
+        }
         $('#searchProduct').autocomplete({
             source: function (request, response) {
 
@@ -77,7 +86,7 @@
                 $('#searchProduct').val('');
                 $product_id = ui.item.value;
                 addRecordToTable($product_id);
-                //$('#submit').show();
+                
             },
             focus: function (event, ui) {
                 return false;
@@ -92,7 +101,7 @@
                 data: { productId: productid },
                 success: function (data) {
                     Pname = data.ProductName;
-                    
+
                     $.ajax({
                         async: false,
                         type: "GET",
@@ -100,23 +109,26 @@
                         data: { Pname: Pname },
                         success: function (data) {
                             dropdowndata = data;
-                            
+
                         }
                     });
                     var date = new Date(parseInt(data.ExpiryDate.substr(6)));
                     date = date.toLocaleDateString();
                     var start = "<select id='dropdown'>";
                     var close = "</select>";
-                    var pattern="";
+                    var pattern = "";
                     $.each(dropdowndata, function (i, data) {
-                        
-                        
-                        pattern=pattern+"<option value=" + data.Id + ">" + data.BatchNo + "</option>";
+
+
+                        pattern = pattern + "<option value=" + data.Id + ">" + data.BatchNo + "</option>";
                     });
                     var string = start + pattern + close;
-                    $("#purchaseItems").append('<tr class="rowSelector" style="background-color: white;"><td><button class="remove btn btn-danger"><i class="fa fa-trash bill-times-icon" aria-hidden="true"></i></button></td><td>' + data.ProductName + '</td><td>' + string + '</td><td>'
-                        + data.PackCost + '</td><td><input class="qunatity" name="text1" type="number"/></td><td>' + date + '</td><td><input class="discount" name="discount" type="number"/></td><td><input class="tax" type="number"/></td><td id="amount">0</td><td><input type="hidden" class="prodId" value="' + data.Id + '"></td></tr>');
+                    $("#purchaseItems").append('<tr class="rowSelector" style="background-color: white;"><td><button class="remove btn btn-danger"><i class="fas fa-times-circle" aria-hidden="true"></i></button></td><td>' + data.ProductName + '</td><td>' + string + '</td><td>'
+                        + data.PackCost + '</td><td><input class="qunatity" style="width:80px" name="text1" type="number"/></td></td><td><input class="loose" style="width:80px" name="loose" type="number"/></td><td>' + date + '</td><td><input class="discount" style="width:80px" name="discount" type="number"/></td><td><input class="tax" style="width:80px" name="tax" type="number"/></td><td id="amount">0</td><td><input type="hidden" class="prodId" value="' + data.Id + '"></td></tr>');
                     $("#barcode_scan_area").empty();
+
+                    $("#submit").show();
+
                 }
             });
         }
@@ -125,33 +137,310 @@
             var price = parentElement.find('td:eq(3)').text();
             var quantity = parentElement.find('input[name="text1"]').val();
             var amount = price * quantity;
-            if (parentElement.find('input[name="discount"]').val() != "") {
-                    if (parentElement.find('input[name="discount"]').val() > 10) {
-                        parentElement.find('input[name="discount"]').val(10);
-                    }
-                    var discount = parentElement.find('input[name="discount"]').val();
-                    discount = amount * (discount / 100);
-                    amount = amount - discount;
+            if (parentElement.find('input[name="discount"]').val() != "" && parentElement.find("input[name='text1']").val() != "") {
+
+                if (parentElement.find('input[name="discount"]').val() > 10) {
+                    parentElement.find('input[name="discount"]').val(10);
+                }
+                var discount = parentElement.find('input[name="discount"]').val();
+                discount = amount * (discount / 100);
+                amount = amount - discount;
+                amount = parseFloat(amount).toFixed(2);
+
             }
-            parentElement.find('td:eq(8)').html(amount);
-            
+            if (parentElement.find("input[name='loose']").val() != "" && parentElement.find("input[name='text1']").val() != "") {
+                var totalamount = parseFloat(parentElement.find("td:eq(9)").text());
+                amount = amount + totalamount;
+            }
+
+            if (parentElement.find('input[name="tax"]').val() != "") {
+                var tax = parseInt(parentElement.find('input[name="tax"]').val());
+                var quantity = parseInt(parentElement.find('input[name="text1"]').val());
+                tax = (tax * quantity);
+                amount = amount + tax;
+                amount = amount.toFixed(2);
+            }
+            if (parentElement.find('input[name="text1"]').val() == "") {
+                if (parentElement.find('input[name="loose"]').val() != "") {
+                    
+                    var batchno = parentElement.find(':selected').text();
+                    $.ajax({
+                        type: "GET",
+                        url: "/Invoice/GetUnitPrice",
+                        data: { BatchNo: batchno },
+                        success: function (data) {
+      
+                            if (parentElement.find("input[name='loose']").val() != "" && parentElement.find("input[name='discount']").val() == "") {
+                                var total = parseInt(parentElement.find('td:eq(9)').text());
+                                total = parseFloat(total);
+                                if (isNaN(total)) {
+                                    total = 0;
+                                }
+                                var unitRate = parseInt(JSON.stringify(data));
+                                var totalloose = parseInt(parentElement.find("input[name='loose']").val());
+                                var loosetotalAmount = (unitRate * totalloose);
+                                loosetotalAmount = parseFloat(loosetotalAmount).toFixed(2);
+                                total = parseFloat(total) + parseFloat(loosetotalAmount);
+                                total = parseFloat(total).toFixed(2);
+                                parentElement.find('td:eq(9)').html(total);
+
+                            }
+                            if (parentElement.find("input[name='loose']").val() == "") {
+                                var q = parseInt(parentElement.find('input[name="text1"]').val());
+                                var p = parseInt(parentElement.find('td:eq(3)').text());
+                                var t = parseFloat(q) * parseFloat(p);
+                                t = t.toFixed(2);
+                                if (isNaN(t)) {
+                                    t = 0;
+                                    parseFloat(t);
+                                }
+                                parentElement.find('td:eq(9)').html(t);
+                            }
+                        }
+                    });
+                }
+                else {
+                    amount = 0;
+                }
+            }
+            if (parentElement.find('input[name="text1"]').val() != "" && parentElement.find("input[name='loose']").val() != ""
+                && parentElement.find("input[name='discount']").val() != "") {
+                var loosetotalAmount = calculateLoosePrice(parentElement);
+                loosetotalAmount = parseFloat(loosetotalAmount).toFixed(2);
+                var p = parentElement.find('td:eq(3)').text();
+                var q = parentElement.find('input[name="text1"]').val();
+                amount = p * q;
+                amount = parseFloat(amount) + parseFloat(loosetotalAmount);
+                var discount = parentElement.find('input[name="discount"]').val();
+                discount = amount * (discount / 100);
+                amount = amount - discount;
+                amount = parseFloat(amount).toFixed(2);
+                parentElement.find('td:eq(9)').html(amount);
+            }
+
+            amount = parseFloat(amount).toFixed(2);
+            parentElement.find('td:eq(9)').html(amount);
         });
+        var looseTotal;
+        function assignvalue(data) {
+            looseTotal = data;
+        }
         $('#purchaseItems').on('keyup', 'input[name="discount"]', function () {
             var parentElement = $(this).closest("tr");
             var price = parentElement.find('td:eq(3)').text();
             var quantity = parentElement.find('input[name="text1"]').val();
             var amount = price * quantity;
+            if (parentElement.find('input[name="discount"]').val() > 10) {
+                parentElement.find('input[name="discount"]').val(10);
+            }
             if (parentElement.find('input[name="text1"]').val() != "") {
+                var discount = parentElement.find('input[name="discount"]').val();
+                discount = amount * (discount / 100);
+                amount = amount - discount;
+            }
+            if (parentElement.find('input[name="tax"]').val() != "") {
+
+                var tax = parseInt(parentElement.find('input[name="tax"]').val());
+                var quantity = parseInt(parentElement.find('input[name="text1"]').val());
+                tax = (tax * quantity);
+                amount = amount + tax;
+            }
+            if (parentElement.find("input[name='loose']").val() != "" && parentElement.find('input[name="text1"]').val() != "") {
+                var temp = parseInt(parentElement.find("td:eq(9)").text());
+                var discount = parentElement.find('input[name="discount"]').val();
+                discount = temp * (discount / 100);
+                amount = temp - discount;
+            }
+            if (parentElement.find("input[name='loose']").val() != "" && parentElement.find("input[name='discount']").val() != "" && parentElement.find("input[name='text1']").val() == "") {
+                var loosetotalAmount = calculateLoosePrice(parentElement);
+                loosetotalAmount = parseFloat(loosetotalAmount).toFixed(2);
+                amount = loosetotalAmount;
+                var discount = parentElement.find('input[name="discount"]').val();
+                discount = amount * (discount / 100);
+                amount = amount - discount;
+                parentElement.find('td:eq(9)').html(amount);
+            }
+            if (parentElement.find("input[name='loose']").val() != "" && parentElement.find("input[name='discount']").val() == "") {
+                var loosetotalAmount = calculateLoosePrice(parentElement);
+                loosetotalAmount = parseFloat(loosetotalAmount).toFixed(2);
+                amount = loosetotalAmount;
+                parentElement.find('td:eq(9)').html(amount);
+            }
+            if (parentElement.find("input[name='loose']").val() != "" && parentElement.find('input[name="text1"]').val() != ""
+                && parentElement.find('input[name="discount"]').val() == "") {
+                amount = parseFloat(price) * parseFloat(quantity);
+                var loosetotalAmount = calculateLoosePrice(parentElement);
+                loosetotalAmount = parseFloat(loosetotalAmount).toFixed(2);
+                amount = parseFloat(amount) + parseFloat(loosetotalAmount);
+                amount = parseFloat(amount);
+            }
+            parentElement.find('td:eq(9)').html(amount);
+        });
+
+        $('#purchaseItems').on('keyup', 'input[name="tax"]', function () {
+            var parentElement = $(this).closest("tr");
+            if (parentElement.find('input[name="text1"]').val() != "" && parentElement.find('input[name="tax"]').val() != "") {
+                var amount = parseInt(parentElement.find('td:eq(9)').text());
+                var tax = calculateTax(parentElement);
+                var total = (parseFloat(amount) + parseFloat(tax)).toFixed(2);
+                parentElement.find('td:eq(9)').html(total);
+            }
+            if (parentElement.find('input[name="text1"]').val() != "" && parentElement.find('input[name="discount"]').val() != "" && parentElement.find('input[name="tax"]').val() != "") {
+                var amount = parseInt(parentElement.find('td:eq(9)').text());
+                var tax = calculateTax(parentElement);
+                var total = (amount + tax);
+                total = amount.toFixed(2);
+                parentElement.find('td:eq(9)').html(total);
+            }
+            if (parentElement.find('input[name="text1"]').val() != "" && parentElement.find('input[name="discount"]').val() != ""
+                && parentElement.find('input[name="tax"]').val() == "") {
+
+                var price = parentElement.find('td:eq(3)').text();
+                var quantity = parentElement.find('input[name="text1"]').val();
+                var amount = price * quantity;
+
                 if (parentElement.find('input[name="discount"]').val() > 10) {
                     parentElement.find('input[name="discount"]').val(10);
                 }
                 var discount = parentElement.find('input[name="discount"]').val();
-                discount = amount * (discount/100);
+                discount = amount * (discount / 100);
                 amount = amount - discount;
-            }
-            parentElement.find('td:eq(8)').html(amount);
 
+                amount = amount.toFixed(2);
+                parentElement.find('td:eq(9)').html(amount);
+            }
+            if (parentElement.find('input[name="text1"]').val() != "" && parentElement.find('input[name="discount"]').val() != ""
+                && parentElement.find('input[name="tax"]').val() == "" && parentElement.find('input[name="loose"]').val() != "") {
+
+
+
+            }
         });
+        $("#purchaseItems").on('change', '#dropdown', function () {
+            var batchno = $('#dropdown :selected').text();
+            var parentElement = $(this).closest("tr");
+            $.ajax({
+                type: "GET",
+                url: "/Invoice/GetExpiry",
+                data: { batchNo: batchno },
+                success: function (data) {
+                    alert(JSON.stringify(data));
+                    var date = new Date(parseInt(data.ExpiryDate.substr(6)));
+                    date = date.toLocaleDateString();
+                    parentElement.find('td:eq(6)').html(date);
+                    parentElement.find('td:eq(3)').html(data.PackRetailCost);
+                }
+            });
+        });
+        $('#purchaseItems').on('click', '.remove', function () {
+            $(this).parents('tr').remove();
+            var rowCount = $('#purchaseItems tbody tr').length;
+            if (rowCount < 1) {
+                $("#submit").hide();
+            }
+        }
+        );
+        $("#purchaseItems").on('keyup', '.loose', function () {
+            var parentElement = $(this).closest("tr");
+            var price = parentElement.find('td:eq(3)').text();
+            var quantity = parentElement.find('input[name="text1"]').val();
+            var amount = price * quantity;
+            if (parentElement.find("input[name='loose']").val() != "") {
+                var total = amount;
+                total = parseFloat(total);
+                if (isNaN(total)) {
+                    total = 0;
+                }
+                var loosetotalAmount = calculateLoosePrice(parentElement);
+                total = parseFloat(total) + parseFloat(loosetotalAmount);
+                total = parseFloat(total).toFixed(2);
+                parentElement.find('td:eq(9)').html(total);
+            }
+            if (parentElement.find("input[name='loose']").val() == "") {
+                var q = parseInt(parentElement.find('input[name="text1"]').val());
+                var p = parseInt(parentElement.find('td:eq(3)').text());
+                var t = parseFloat(q) * parseFloat(p);
+                t = t.toFixed(2);
+                if (isNaN(t)) {
+                    t = 0;
+                    parseFloat(t);
+                }
+                parentElement.find('td:eq(9)').html(t);
+
+            }
+            if (parentElement.find("input[name='text1']").val() == "" && parentElement.find("input[name='loose']").val() != ""
+                && parentElement.find("input[name='discount']").val() != "") {
+
+                var loosetotalAmount = calculateLoosePrice(parentElement);;
+                amount = loosetotalAmount;
+                var discount = parentElement.find('input[name="discount"]').val();
+                discount = loosetotalAmount * (discount / 100);
+                amount = amount - discount;
+                parentElement.find('td:eq(9)').html(amount);
+            }
+            if (parentElement.find("input[name='text1']").val() != "" && parentElement.find("input[name='loose']").val() == ""
+                && parentElement.find("input[name='discount']").val() != "") {
+
+                var qu = parseInt(parentElement.find("input[name='text1']").val());
+                var price = parseInt(parentElement.find("td:eq(3)").text());
+                var total = qu * price;
+
+
+                var discount = parentElement.find('input[name="discount"]').val();
+                discount = total * (discount / 100);
+                total = total - discount;
+                parentElement.find('td:eq(9)').html(total);
+
+            }
+            if (parentElement.find("input[name='text1']").val() != "" && parentElement.find("input[name='loose']").val() == ""
+                && parentElement.find("input[name='discount']").val() != "") {
+                var qu = parseInt(parentElement.find("input[name='text1']").val());
+                var price = parseInt(parentElement.find("td:eq(3)").text());
+                var total = qu * price;
+
+                var discount = parentElement.find('input[name="discount"]').val();
+                discount = total * (discount / 100);
+                total = total - discount;
+                parentElement.find('td:eq(9)').html(total);
+            }
+            if (parentElement.find("input[name='text1']").val() != "" && parentElement.find("input[name='loose']").val() != ""
+                && parentElement.find("input[name='discount']").val() != "") {
+
+                var qu = parseInt(parentElement.find("input[name='text1']").val());
+                var price = parseInt(parentElement.find("td:eq(3)").text());
+                var total = qu * price;
+                total = parseFloat(total).toFixed(2);
+                var loosetotalAmount = calculateLoosePrice(parentElement);
+                total = parseFloat(total) + parseFloat(loosetotalAmount);
+                var discount = parentElement.find('input[name="discount"]').val();
+                discount = total * (discount / 100);
+                total = total - discount;
+                parentElement.find('td:eq(9)').html(total);
+
+            }
+        });
+        function calculateTax(reference) {
+            var tax = parseFloat(reference.find('input[name="tax"]').val());
+            var quantity = parseFloat(reference.find('input[name="text1"]').val());
+            var totaltax = (tax * quantity).toFixed(2);
+            return totaltax;
+        }
+        function calculateLoosePrice(reference) {
+            var batchno = reference.find(':selected').text();
+            var totalloose = parseFloat(reference.find("input[name='loose']").val());
+            var temp;
+            $.ajax({
+                type: "GET",
+                url: "/Invoice/GetUnitPrice",
+                data: { BatchNo: batchno },
+                async: false,
+                success: function (data) {
+                    temp = JSON.stringify(data);
+                }
+            });
+            temp = parseFloat(temp).toFixed(2) * parseFloat(totalloose);
+            return temp;
+        }
     }
     );
 </script>

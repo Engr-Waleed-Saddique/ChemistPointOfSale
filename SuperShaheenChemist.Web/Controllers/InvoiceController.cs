@@ -27,5 +27,17 @@ namespace SuperShaheenChemist.Web.Controllers
 
             return Json(ob,JsonRequestBehavior.AllowGet);
         }
+        public ActionResult GetExpiry(string batchNo)
+        {
+            var products = ProductsService.Instance.GetProducts();
+            var ob = products.Where(x => x.BatchNo.Trim().ToLower() == batchNo.Trim().ToLower()).Select(x =>new { x.ExpiryDate,x.PackRetailCost }).FirstOrDefault();
+            return Json(ob,JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GetUnitPrice(string BatchNo)
+        {
+            var products = ProductsService.Instance.GetProducts();
+            var ob = products.Where(x => x.BatchNo.Trim().ToLower() == BatchNo.Trim().ToLower()).Select(x => x.UnitRetail).FirstOrDefault();
+            return Json(ob, JsonRequestBehavior.AllowGet);
+        }
     }
 }
