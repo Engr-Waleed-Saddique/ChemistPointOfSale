@@ -101,6 +101,34 @@
     <Compile Include="Migrations\202102020602440_OrderItemTableMoreColumnsAdded.Designer.cs">
       <DependentUpon>202102020602440_OrderItemTableMoreColumnsAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102041027269_taxColumnRemoved.cs" />
+    <Compile Include="Migrations\202102041027269_taxColumnRemoved.Designer.cs">
+      <DependentUpon>202102041027269_taxColumnRemoved.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102041059466_tableNamehanged.cs" />
+    <Compile Include="Migrations\202102041059466_tableNamehanged.Designer.cs">
+      <DependentUpon>202102041059466_tableNamehanged.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102041102270_tableNamehanged1.cs" />
+    <Compile Include="Migrations\202102041102270_tableNamehanged1.Designer.cs">
+      <DependentUpon>202102041102270_tableNamehanged1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102041213148_foriegnkeyRemoved.cs" />
+    <Compile Include="Migrations\202102041213148_foriegnkeyRemoved.Designer.cs">
+      <DependentUpon>202102041213148_foriegnkeyRemoved.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102041216353_foriegnkeyrelationremoved.cs" />
+    <Compile Include="Migrations\202102041216353_foriegnkeyrelationremoved.Designer.cs">
+      <DependentUpon>202102041216353_foriegnkeyrelationremoved.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102041220287_PKadded.cs" />
+    <Compile Include="Migrations\202102041220287_PKadded.Designer.cs">
+      <DependentUpon>202102041220287_PKadded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102041229301_ordertableModified.cs" />
+    <Compile Include="Migrations\202102041229301_ordertableModified.Designer.cs">
+      <DependentUpon>202102041229301_ordertableModified.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -153,6 +181,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102020602440_OrderItemTableMoreColumnsAdded.resx">
       <DependentUpon>202102020602440_OrderItemTableMoreColumnsAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102041027269_taxColumnRemoved.resx">
+      <DependentUpon>202102041027269_taxColumnRemoved.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102041059466_tableNamehanged.resx">
+      <DependentUpon>202102041059466_tableNamehanged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102041102270_tableNamehanged1.resx">
+      <DependentUpon>202102041102270_tableNamehanged1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102041213148_foriegnkeyRemoved.resx">
+      <DependentUpon>202102041213148_foriegnkeyRemoved.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102041216353_foriegnkeyrelationremoved.resx">
+      <DependentUpon>202102041216353_foriegnkeyrelationremoved.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102041220287_PKadded.resx">
+      <DependentUpon>202102041220287_PKadded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102041229301_ordertableModified.resx">
+      <DependentUpon>202102041229301_ordertableModified.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
