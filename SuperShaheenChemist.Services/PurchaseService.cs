@@ -65,6 +65,13 @@ namespace SuperShaheenChemist.Services
                 return context.PurchaseProductMaster.Max(x => (int?)x.TransactionId) ?? 0;
             }
         }
+        public int OrdersMaxID()
+        {
+            using (var context = new CBContext())
+            {
+                return context.Orders.Max(x => (int?)x.Id) ?? 0;
+            }
+        }
         public void AddIntoMasterOrder(PurchaseOrderMaster ob)
         {
             using (var context = new CBContext())
@@ -116,6 +123,13 @@ namespace SuperShaheenChemist.Services
             using (var context=new CBContext())
             {
                 return context.PurchaseProductMaster.Where(x => x.Date >= fDate && x.Date <= tDate).ToList();
+            }
+        }
+        public List<OrderItem> GetOrderDetials(int id)
+        {
+            using (var context = new CBContext())
+            {
+                 return context.OrderItems.Where(x => x.OrderID == id).Include(x=>x.Product).ToList();
             }
         }
     }

@@ -19,5 +19,6 @@ namespace SuperShaheenChemist.Entities
         public int Return { get; set; }
         public decimal Price { get; set; }
         public int TotalAmount { get; set; }
+        public string BatchNo { get; set; }
     }
 }

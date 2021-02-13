@@ -18,6 +18,7 @@ namespace SuperShaheenChemist.Entities
         public int Qty { get; set; }
         public int TotalAmount { get; set; }
         public int TransactionId { get; set; }
+        public string BatchNo { get; set; }
 
     }
 }

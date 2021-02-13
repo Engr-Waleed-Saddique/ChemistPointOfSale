@@ -22,5 +22,6 @@ namespace SuperShaheenChemist.Entities
         public virtual Order Order { get; set; }
         public int ProductID { get; set; }
         public virtual Product Product { get; set; }
+
     }
 }

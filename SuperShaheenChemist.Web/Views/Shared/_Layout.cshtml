@@ -23,7 +23,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" type="text/css" media="all" href="~/Client/dist/css/stellarnav.css">
     
     @*<script src="~/Client/plugins/jquery/jquery.min.js"></script>*@
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    @*<script src="https://code.jquery.com/jquery-3.5.1.js"></script>*@
+    <script src="~/Content/Js/Jquery.js"></script>
     <script type="text/javascript" src="~/Client/dist/js/stellarnav.min.js"></script>
     <!-- custom Style Sheet-->
     <link href="~/Client/dist/css/custom.css" rel="stylesheet" />
@@ -31,7 +32,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </head>
 <body class="hold-transition skin-yellow sidebar-collapse">
     <!-- Stellar Nav-->
-    <div class="stellarnav">
+    <div class="stellarnav hidden-print">
         <ul>
             <li>
                 <a href="javascript:void(0)">
@@ -219,7 +220,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </a>
                     </li>
                     <li>
-                        <a href="https://medix.spantiklab.com/invoice">
+                        <a href="/Invoice/CreateInvoice">
                             <i class="sub-icon-settings far fa-circle"></i>
                             Create invoice
                         </a>
@@ -516,7 +517,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
         <!-- /.content-wrapper -->
         <!-- Main Footer -->
-        <footer class="main-footer">
+        <footer class="main-footer hidden-print">
             <!-- To the right -->
             <div class="float-right d-none d-sm-inline">
                 Anything you want

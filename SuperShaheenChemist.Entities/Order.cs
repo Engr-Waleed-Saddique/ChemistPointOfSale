@@ -10,6 +10,7 @@ namespace SuperShaheenChemist.Entities
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
+        public string CustomerName { get; set; }
         public decimal TotalAmount { get; set; }
         public virtual List<OrderItem> OrderItems { get; set; }
 

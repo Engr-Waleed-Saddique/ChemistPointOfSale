@@ -20,6 +20,8 @@ namespace SuperShaheenChemist.Web.Controllers
         }
         public ActionResult CreateInvoice()
         {
+            int billno=PurchaseService.Instance.OrdersMaxID()+1;
+            ViewBag.billno = billno;
             return View();
         }
         public ActionResult ProductsWithBatchNo(string Pname)
@@ -36,6 +38,7 @@ namespace SuperShaheenChemist.Web.Controllers
             var ob = products.Where(x => x.BatchNo.Trim().ToLower() == batchNo.Trim().ToLower()).Select(x => new { x.ExpiryDate, x.PackRetailCost }).FirstOrDefault();
             return Json(ob, JsonRequestBehavior.AllowGet);
         }
+
         public ActionResult GetUnitPrice(string BatchNo)
         {
             var products = ProductsService.Instance.GetProducts();
@@ -43,13 +46,12 @@ namespace SuperShaheenChemist.Web.Controllers
             return Json(ob, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public ActionResult SaveSaleProducts(string saleItems)
+        public ActionResult SaveSaleProducts(string saleItems,string CustomerName)
         {
 
             var result = JsonConvert.DeserializeObject<List<SaleViewModel>>(saleItems);
             OrderItem temp = new OrderItem();
-            Order order = new Order();
-            
+            Order order = new Order();   
             decimal total = 0;
             foreach(var item in result)
             {
@@ -57,8 +59,8 @@ namespace SuperShaheenChemist.Web.Controllers
             }
             order.TotalAmount = total;
             order.Date = DateTime.Now;
+            order.CustomerName = CustomerName;
             SaleService.Instance.SaveOrder(order);
-
             foreach (var item in result)
             {
                 temp.OrderID = SaleService.Instance.OrderMaxID();
@@ -104,8 +106,59 @@ namespace SuperShaheenChemist.Web.Controllers
                 SaleService.Instance.SaveSale(temp);
             }
 
-            return Json("Success");
+            StockInventry stock = new StockInventry();
+            //Minus the product from stock which are saled.
+            foreach (var item in result)
+            {
+                stock.ProductId = item.ProductID;
+                stock.BatchNo = item.BatchNo;
+                try
+                {
+                    if (item.Amount != "")
+                    {
+                        stock.TotalAmount = int.Parse(item.Amount);
+                    }
+                }
+                catch (Exception e)
+                {
+                    stock.Stock = 0;
+                }
 
+                try
+                {
+                    if (item.Quantity != "")
+                    {
+                        stock.Stock = int.Parse(item.Quantity);
+                    }
+                }
+                catch (Exception e)
+                {
+                    stock.Stock = 0;
+                }
+                StockService.Instance.SaleProductsDeductedFromStock(stock);
+            }
+            int orderId = PurchaseService.Instance.OrdersMaxID();
+            return Json(orderId);
+
+        }
+        [HttpGet]
+        public ActionResult PreviewReceipt(int id)
+        {
+            List<OrderItem> data = new List<OrderItem>();
+            data=PurchaseService.Instance.GetOrderDetials(id);
+            decimal total = 0;
+            int numberOfItems = 0;
+            foreach(var item in data)
+            {
+                total =total+ item.Amount;
+                numberOfItems++;
+            }
+            ViewBag.total = total;
+            ViewBag.numberofitems = numberOfItems;
+            ViewBag.BillNo ="";
+            ViewBag.data = data;
+            ViewBag.orderNo = id;
+            return View();
         }
     }
 }

@@ -13,13 +13,14 @@ namespace SuperShaheenChemist.Web.ViewModels
         public int ProductID { get; set; }
         public int Quantity{get;set;}
         public int TotalAmount { get; set; }
-
+        public string BatchNo { get; set; }
     }
     public class ReturnViewModel
     {
         public int ProductID { get; set; }
         public int Quantity { get; set; }
         public int TotalAmount { get; set; }
+        public string BatchNo { get; set; }
 
     }
     public class PurchaseTableViewModel

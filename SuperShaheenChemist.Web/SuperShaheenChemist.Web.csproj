@@ -217,6 +217,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\pharmacy.png" />
+    <Content Include="Content\Images\pharmacyicon.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Client\build\config\postcss.config.js" />
@@ -2089,6 +2091,7 @@
     <Content Include="Client\bootstrap\js\bootstrap.bundle.min.js.map" />
     <Content Include="Client\bootstrap\js\bootstrap.js.map" />
     <Content Include="Client\bootstrap\js\bootstrap.min.js.map" />
+    <Content Include="Content\Js\Jquery.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2149,6 +2152,7 @@
     <Content Include="Views\Purchase\ViewPurchaseOrderDetails.cshtml" />
     <Content Include="Views\Purchase\GetPurchaseProductDetails.cshtml" />
     <Content Include="Views\Invoice\CreateInvoice.cshtml" />
+    <Content Include="Views\Invoice\PreviewReceipt.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

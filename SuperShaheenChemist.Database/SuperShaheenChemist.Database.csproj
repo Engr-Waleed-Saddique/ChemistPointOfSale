@@ -129,6 +129,22 @@
     <Compile Include="Migrations\202102041229301_ordertableModified.Designer.cs">
       <DependentUpon>202102041229301_ordertableModified.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102120555060_BatchNoAdded.cs" />
+    <Compile Include="Migrations\202102120555060_BatchNoAdded.Designer.cs">
+      <DependentUpon>202102120555060_BatchNoAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102120631059_batchnoaddedInStock.cs" />
+    <Compile Include="Migrations\202102120631059_batchnoaddedInStock.Designer.cs">
+      <DependentUpon>202102120631059_batchnoaddedInStock.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102120710546_BatchNoAddedInReturnTable.cs" />
+    <Compile Include="Migrations\202102120710546_BatchNoAddedInReturnTable.Designer.cs">
+      <DependentUpon>202102120710546_BatchNoAddedInReturnTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102131142311_CustomerNameColumnAdded.cs" />
+    <Compile Include="Migrations\202102131142311_CustomerNameColumnAdded.Designer.cs">
+      <DependentUpon>202102131142311_CustomerNameColumnAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -202,6 +218,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102041229301_ordertableModified.resx">
       <DependentUpon>202102041229301_ordertableModified.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102120555060_BatchNoAdded.resx">
+      <DependentUpon>202102120555060_BatchNoAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102120631059_batchnoaddedInStock.resx">
+      <DependentUpon>202102120631059_batchnoaddedInStock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102120710546_BatchNoAddedInReturnTable.resx">
+      <DependentUpon>202102120710546_BatchNoAddedInReturnTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102131142311_CustomerNameColumnAdded.resx">
+      <DependentUpon>202102131142311_CustomerNameColumnAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -34,6 +34,7 @@
                                     <thead class="">
                                         <tr>
                                             <th>Product Name</th>
+                                            <th>Batch No</th>
                                             <th>Generic Name</th>
                                             <th>Quantity</th>
                                             <th>Price</th>
@@ -98,20 +99,61 @@
                 dataType: 'JSON',
                 data: { productId: productid },
                 success: function (data) {
-                    $("#purchaseItems").append('<tr class="rowSelector" style="background-color: white;"><td>' + data.ProductName + '</td><td>'
-                        + data.GenericName + '</td><td><input class="qunatity" type="number"/></td><td>' + data.PackCost + '</td><td id="amount">0</td><td><button class="remove btn btn-danger">Remove</button> </td><td><input type="hidden" class="prodId" value="' + data.Id + '"></td></tr>');
+                    Pname = data.ProductName;
+                    $.ajax({
+                        async: false,
+                        type: "GET",
+                        url: "/invoice/ProductsWithBatchNo",
+                        data: { Pname: Pname },
+                        success: function (data) {
+                            dropdowndata = data;
+
+                        }
+                    });
+                    var date = new Date(parseInt(data.ExpiryDate.substr(6)));
+                    date = date.toLocaleDateString();
+                    var start = "<select id='dropdown'>";
+                    var close = "</select>";
+                    var pattern = "";
+                    $.each(dropdowndata, function (i, data) {
+
+
+                        pattern = pattern + "<option value=" + data.Id + ">" + data.BatchNo + "</option>";
+                    });
+                    var string = start + pattern + close;
+                    $("#purchaseItems").append('<tr class="rowSelector" style="background-color: white;"><td>' + data.ProductName + '</td><td>'+string+'</td><td>'
+                        + data.GenericName + '</td><td><input class="qunatity" type="number"/></td><td>' + data.PackRetailCost + '</td><td id="amount">0</td><td><button class="remove btn btn-danger">Remove</button> </td><td><input type="hidden" class="prodId" value="' + data.Id + '"></td></tr>');
                     $("#barcode_scan_area").empty();
                 }
             });
 
         }
-        $('#purchaseItems').on('change', '.rowSelector', function () {
+        $('#purchaseItems').on('keyup', '.rowSelector', function () {
             var input = $(this).find('input').val();
-            var value = $(this).find('td:eq(3)').text();
-            $(this).find('td:eq(4)').html(input * value);
+            var value = $(this).find('td:eq(4)').text();
+            $(this).find('td:eq(5)').html(input * value);
             $('input', this).removeClass('error');
+        });
 
+        $("#purchaseItems").on('change', '#dropdown', function () {
+            var batchno = $('#dropdown :selected').text();
+            var parentElement = $(this).closest("tr");
+            $.ajax({
+                type: "GET",
+                url: "/Invoice/GetExpiry",
+                data: { batchNo: batchno },
+                success: function (data) {
 
+                    parentElement.find('td:eq(4)').html(data.PackRetailCost);
+                    
+                    if (parentElement.find('.qunatity') != "") {
+                        
+                        var input = parentElement.find('input').val();
+                        var value = parentElement.find('td:eq(4)').text();
+                        parentElement.find('td:eq(5)').html(input * value);
+                    }
+                }
+            });
         });
         $('#purchaseItems').on('click', '.remove', function () {
             $(this).parents('tr').remove();
@@ -122,8 +164,6 @@
             }
         }
         );
-
-
         $('#submit').click(function () {
             var errorCount=0;
             $('#purchaseItems tbody tr').each(function (index, value) {
@@ -139,7 +179,8 @@
                     var purchaseItem = {
                         ProductID: parseInt($(this).find('input.prodId').val()),
                         Quantity: parseInt($(this).find('input.qunatity').val()),
-                        TotalAmount: parseInt($(this).find('td:eq(4)').text())
+                        TotalAmount: parseInt($(this).find('td:eq(4)').text()),
+                        BatchNo: $(this).find(':selected').text()
                     }
                     list.push(purchaseItem);
                 });

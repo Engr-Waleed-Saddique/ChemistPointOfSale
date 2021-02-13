@@ -42,14 +42,15 @@ namespace SuperShaheenChemist.Web.Controllers
                 temp.Date = DateTime.Now;
                 temp.TotalAmount = pItems.TotalAmount;
                 temp.TransactionId = transactionId;
+                temp.BatchNo = pItems.BatchNo;
                 ProductsService.Instance.PurchaseProduct(temp);
                 totolAmount = totolAmount + pItems.TotalAmount;
                 //Adding Products data in stock
-
                 stock.ProductId = pItems.ProductID;
                 stock.Price = ProductsService.Instance.ProductPrice(pItems.ProductID);
                 stock.Received = stock.Received + pItems.Quantity;
                 stock.Stock = pItems.Quantity;
+                stock.BatchNo = pItems.BatchNo;
                 stock.TotalAmount = stock.TotalAmount + pItems.TotalAmount;
 
                 StockService.Instance.AddStock(stock);
@@ -157,6 +158,7 @@ namespace SuperShaheenChemist.Web.Controllers
                 temp.ProductId = p.Id;
                 temp.Qty = pItems.Quantity;
                 temp.Date = DateTime.Now;
+                temp.BatchNo = pItems.BatchNo;
                 temp.TotalAmount = pItems.TotalAmount;
                 ProductsService.Instance.ReturnPurchase(temp);
                 if(ProductsService.Instance.CheckStockForProductReturn(temp))
@@ -165,6 +167,7 @@ namespace SuperShaheenChemist.Web.Controllers
                     stock.ProductId = pItems.ProductID;
                     stock.Price = ProductsService.Instance.ProductPrice(pItems.ProductID);
                     stock.Stock = pItems.Quantity;
+                    stock.BatchNo = pItems.BatchNo;
                     stock.TotalAmount = pItems.TotalAmount;
                     stock.Return = pItems.Quantity;
                     StockService.Instance.ReturnStock(stock);

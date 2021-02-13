@@ -3,12 +3,12 @@
 @{
     ViewBag.Title = "Create Invoice";
 }
-<div class="container">
+<div class="container hidden-print">
 
     <div class="row mt-3">
         <div class="col-md-12">
             <h3>
-                <i class="fa fa-globe"></i> Invoice No # 01
+                <i class="fa fa-globe"></i> Invoice No # @ViewBag.billno
             </h3>
         </div>
     </div>
@@ -26,7 +26,11 @@
             </div>
         </div>
         <div class="col-md-6">
-
+            <div class="form-group">
+                <label><i class="fa fa-user" aria-hidden="true"></i> <b>Enter Customer Name :</b></label>
+                <input type="text" id="customerName" placeholder="Enter Customer Name" class="form-control clearable" />
+                <small>Enter Customer Name </small> <br />
+            </div>
         </div>
     </div>
     <div class="row">
@@ -43,7 +47,7 @@
                             <th>Loose</th>
                             <th>Expiry</th>
                             <th>Disc %</th>
-                            
+
                             <th>Amount</th>
                         </tr>
                     </thead>
@@ -53,6 +57,7 @@
             </div>
         </div>
     </div>
+    
     <div class="col-md-12 text-right">
         <button id="submit" class="btn btn-primary"><i class="fa fa-print" aria-hidden="true"></i> Save & Print</button>
     </div>
@@ -60,13 +65,13 @@
 </div>
 <script>
     $(document).ready(function () {
+        
         var rowCount = $('#purchaseItems tbody tr').length;
         if (rowCount < 1) {
             $("#submit").hide();
         }
         $('#searchProduct').autocomplete({
             source: function (request, response) {
-
                 $.ajax({
                     url: "/purchase/GetProductList",
                     type: "GET",
@@ -408,23 +413,23 @@
                         Price: parseFloat($(this).find('td:eq(3)').text()),
                         ExpiryDate: $(this).find('td:eq(6)').text(),
                         Discount: parseFloat($(this).find('input.discount').val()),
-                        Amount: parseFloat($(this).find('td:eq(8)').text())
+                        Amount: parseFloat($(this).find('td:eq(8)').text()),
+                        CustomerName: $("#customerName").val()
                     }
                     list.push(SaleItem);
                 });
                 $.ajax({
                     type: "POST",
                     url: "/Invoice/SaveSaleProducts",
-                    data: { saleItems: JSON.stringify(list) },
+                    data: { saleItems: JSON.stringify(list), CustomerName: $("#customerName").val() },
                     contenttype: "application/json",
                     success: function (data) {
-                        alert("Success");
                         $("#items").empty();
                         $("#submit").hide();
+                        window.location.href = "/Invoice/PreviewReceipt/"+data+"";
                     },
                     error: function (data) {
                         alert("Data transfer failed");
-                        
                     }
                 });
 

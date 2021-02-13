@@ -118,7 +118,7 @@ namespace SuperShaheenChemist.Services
         {
             using (var context = new CBContext())
             {
-                if (context.StockInventries.Any(x => x.ProductId == product.ProductId && x.Stock > product.Qty)) 
+                if (context.StockInventries.Any(x => x.ProductId == product.ProductId && x.BatchNo==product.BatchNo && x.Stock > product.Qty)) 
                 {
                     context.ReturnPurchases.Add(product);
                     context.SaveChanges();
@@ -128,7 +128,7 @@ namespace SuperShaheenChemist.Services
         public bool CheckStockForProductReturn(ReturnPurchase product)
         {
                 using (var context = new CBContext())
-                if (context.StockInventries.Any(x => x.ProductId == product.ProductId && x.Stock > product.Qty))
+                if (context.StockInventries.Any(x => x.ProductId == product.ProductId && x.BatchNo==product.BatchNo && x.Stock > product.Qty))
                 {
                     return true;
                 }
@@ -137,7 +137,6 @@ namespace SuperShaheenChemist.Services
                     return false;
                 }
         }
-
         public List<PurchaseProducts> PurchaseSearchByDate(string fromDate,string toDate)
         {
             DateTime fDate = Convert.ToDateTime(fromDate);
