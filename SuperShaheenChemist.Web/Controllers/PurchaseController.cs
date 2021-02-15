@@ -248,5 +248,108 @@ namespace SuperShaheenChemist.Web.Controllers
             PurchaseService.Instance.AddIntoMasterOrder(obj);
             return Json("Success");
         }
+        public ActionResult GetPackAndUnitCost(int id)
+        {
+            var products=ProductsService.Instance.GetProducts();
+            var ob = products.Where(x => x.Id==id).Select(x => new { x.UnitRetail, x.PackRetailCost }).FirstOrDefault();
+            return Json(ob, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult ReturnItems(string ReturnItems)
+        {
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            ReturnItemsViewModel returnObject = js.Deserialize<ReturnItemsViewModel>(ReturnItems);
+            
+            if (returnObject.Quantity != 0 && returnObject.Loose==0 && returnObject.Discount==0)
+            {
+                var ob = SaleService.Instance.GetOrderItem(returnObject.RecordID);
+                if (returnObject.Quantity==ob.Quantity)
+                {
+                    PurchaseService.Instance.DeleteReturnItem(returnObject.RecordID);
+                }
+                else
+                {
+                    ob.Quantity = (ob.Quantity-returnObject.Quantity);
+                    ob.Amount = (ob.Amount - returnObject.ReturnAmount);
+
+                    PurchaseService.Instance.UpdateReturnItem(ob);
+                }
+            }
+            if (returnObject.Quantity != 0 && returnObject.Loose != 0 && returnObject.Discount != 0)
+            {
+                var ob = SaleService.Instance.GetOrderItem(returnObject.RecordID);
+                if (returnObject.Quantity == ob.Quantity && returnObject.Loose==ob.Loose)
+                {
+                    PurchaseService.Instance.DeleteReturnItem(returnObject.RecordID);
+                }
+                else
+                {
+                    ob.Quantity = (ob.Quantity - returnObject.Quantity);
+                    ob.Amount = (ob.Amount - returnObject.ReturnAmount);
+                    ob.Loose = (ob.Loose - returnObject.Loose);
+                    PurchaseService.Instance.UpdateReturnItem(ob);
+                }
+            }
+            if (returnObject.Quantity != 0 && returnObject.Loose != 0 && returnObject.Discount == 0)
+            {
+                var ob = SaleService.Instance.GetOrderItem(returnObject.RecordID);
+                if (returnObject.Quantity == ob.Quantity && returnObject.Loose == ob.Loose)
+                {
+                    PurchaseService.Instance.DeleteReturnItem(returnObject.RecordID);
+                }
+                else
+                {
+                    ob.Quantity = (ob.Quantity - returnObject.Quantity);
+                    ob.Amount = (ob.Amount - returnObject.ReturnAmount);
+                    ob.Loose = (ob.Loose - returnObject.Loose);
+                    PurchaseService.Instance.UpdateReturnItem(ob);
+                }
+            }
+            if (returnObject.Quantity == 0 && returnObject.Loose != 0 && returnObject.Discount != 0)
+            {
+                var ob = SaleService.Instance.GetOrderItem(returnObject.RecordID);
+                if (returnObject.Quantity == ob.Quantity && returnObject.Loose == ob.Loose)
+                {
+                    PurchaseService.Instance.DeleteReturnItem(returnObject.RecordID);
+                }
+                else
+                {
+                    ob.Amount = (ob.Amount - returnObject.ReturnAmount);
+                    ob.Loose = (ob.Loose - returnObject.Loose);
+                    PurchaseService.Instance.UpdateReturnItem(ob);
+
+                }
+            }
+            if (returnObject.Quantity == 0 && returnObject.Loose != 0 && returnObject.Discount == 0)
+            {
+                var ob = SaleService.Instance.GetOrderItem(returnObject.RecordID);
+                if (returnObject.Quantity == ob.Quantity && returnObject.Loose == ob.Loose)
+                {
+                    PurchaseService.Instance.DeleteReturnItem(returnObject.RecordID);
+                }
+                else
+                {
+                    ob.Loose = (ob.Loose - returnObject.Loose);
+                    ob.Amount = (ob.Amount - returnObject.ReturnAmount);
+                    PurchaseService.Instance.UpdateReturnItem(ob);
+                }
+            }
+            if (returnObject.Quantity != 0 && returnObject.Loose == 0 && returnObject.Discount != 0)
+            {
+                var ob = SaleService.Instance.GetOrderItem(returnObject.RecordID);
+                if (returnObject.Quantity == ob.Quantity && returnObject.Loose == ob.Loose)
+                {
+                    PurchaseService.Instance.DeleteReturnItem(returnObject.RecordID);
+                }
+                else
+                {
+                    ob.Quantity = (ob.Quantity - returnObject.Quantity);
+                    ob.Amount = (ob.Amount - returnObject.ReturnAmount);
+                    PurchaseService.Instance.UpdateReturnItem(ob);
+                }
+            }
+            return Json("Success");
+        }
+
     }
 }

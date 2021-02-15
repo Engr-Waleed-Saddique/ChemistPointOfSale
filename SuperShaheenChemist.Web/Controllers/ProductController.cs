@@ -122,6 +122,26 @@ namespace SuperShaheenChemist.Web.Controllers
             ViewBag.data = products;
             return View();
         }
+        public ActionResult SaveMedicineType(string type)
+        {
+            PurchaseService.Instance.AddMedicineType(type);
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult SaveCompany(string company)
+        {
+            PurchaseService.Instance.SaveCompany(company);
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult SaveDistributor(string distributor)
+        {
+            PurchaseService.Instance.SaveDistributor(distributor);
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult SaveCategory(string category)
+        {
+            PurchaseService.Instance.SaveCategory(category);
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
 
     }
 }

@@ -73,7 +73,7 @@ namespace SuperShaheenChemist.Web.Controllers
                         temp.Quantity = int.Parse(item.Quantity);
                     }
                 }
-                catch(Exception e)
+                catch(Exception)
                 {
                     temp.Quantity = 0;
                 }
@@ -84,7 +84,7 @@ namespace SuperShaheenChemist.Web.Controllers
                         temp.Loose = int.Parse(item.Loose);
                     }
                 }
-                catch(Exception e)
+                catch(Exception)
                 {
                     temp.Loose = 0;
                 }
@@ -98,7 +98,7 @@ namespace SuperShaheenChemist.Web.Controllers
                         temp.Discount = int.Parse(item.Discount);
                     }
                 }
-                catch(Exception e)
+                catch(Exception)
                 {
                     temp.Discount = 0;
                 }
@@ -119,7 +119,7 @@ namespace SuperShaheenChemist.Web.Controllers
                         stock.TotalAmount = int.Parse(item.Amount);
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     stock.Stock = 0;
                 }
@@ -131,7 +131,7 @@ namespace SuperShaheenChemist.Web.Controllers
                         stock.Stock = int.Parse(item.Quantity);
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     stock.Stock = 0;
                 }
@@ -159,6 +159,52 @@ namespace SuperShaheenChemist.Web.Controllers
             ViewBag.data = data;
             ViewBag.orderNo = id;
             return View();
+        }
+        public ActionResult ViewReceipt(int id)
+        {
+            List<OrderItem> data = new List<OrderItem>();
+            data = PurchaseService.Instance.GetOrderDetials(id);
+            decimal total = 0;
+            int numberOfItems = 0;
+            foreach (var item in data)
+            {
+                total = total + item.Amount;
+                numberOfItems++;
+            }
+            ViewBag.total = total;
+            ViewBag.numberofitems = numberOfItems;
+            ViewBag.BillNo = "";
+            ViewBag.data = data;
+            ViewBag.orderNo = id;
+            return View();
+        }
+        public ActionResult ViewInvoices(string FromDate, string ToDate)
+        {
+            if (!string.IsNullOrEmpty(FromDate) && !string.IsNullOrEmpty(ToDate))
+            {
+                return View(OrderService.Instance.SearchByDate(FromDate, ToDate));
+            }
+            else
+            {
+                
+                return View(OrderService.Instance.GetAllOrders());
+            }
+        }
+        public ActionResult ReturnSales() {
+            return View();
+        }
+        public ActionResult ReturnProducts(int billno)
+        {
+            var ob = new List<OrderItem>();
+            ob=SaleService.Instance.GetBillNoItems(billno);
+            if (ob.Count() == 0)
+            {
+                return Json("Fail", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(ob, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

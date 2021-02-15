@@ -2,6 +2,7 @@
 using SuperShaheenChemist.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,6 +58,24 @@ namespace SuperShaheenChemist.Services
                 context.SaveChanges();
             }
         }
-        
+
+        public List<OrderItem> GetBillNoItems(int billno)
+        {
+            using (var context = new CBContext())
+            {
+                //below line of code is added to make lazy loading =false if we didnot disable it,it show error of connection expose when passing
+                //list to view through json.
+                context.Configuration.LazyLoadingEnabled = false;
+                return context.OrderItems.Where(x => x.OrderID == billno).Include(x=>x.Product).ToList();
+
+            }
+        }
+        public OrderItem GetOrderItem(int id)
+        {
+            using (var context =new CBContext())
+            {
+                return context.OrderItems.Where(x => x.Id == id).FirstOrDefault();
+            }
+        }
     }
 }

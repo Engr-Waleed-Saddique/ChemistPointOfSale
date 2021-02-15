@@ -145,6 +145,30 @@
     <Compile Include="Migrations\202102131142311_CustomerNameColumnAdded.Designer.cs">
       <DependentUpon>202102131142311_CustomerNameColumnAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102141038421_ReturnProductsTableAdded.cs" />
+    <Compile Include="Migrations\202102141038421_ReturnProductsTableAdded.Designer.cs">
+      <DependentUpon>202102141038421_ReturnProductsTableAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102141041024_NewTableAdded.cs" />
+    <Compile Include="Migrations\202102141041024_NewTableAdded.Designer.cs">
+      <DependentUpon>202102141041024_NewTableAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102141043424_ReturnProductsTableAdded1.cs" />
+    <Compile Include="Migrations\202102141043424_ReturnProductsTableAdded1.Designer.cs">
+      <DependentUpon>202102141043424_ReturnProductsTableAdded1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102141047571_tableAdded1.cs" />
+    <Compile Include="Migrations\202102141047571_tableAdded1.Designer.cs">
+      <DependentUpon>202102141047571_tableAdded1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102141056245_tableAdd.cs" />
+    <Compile Include="Migrations\202102141056245_tableAdd.Designer.cs">
+      <DependentUpon>202102141056245_tableAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102141100257_TAbleFieldsChanged.cs" />
+    <Compile Include="Migrations\202102141100257_TAbleFieldsChanged.Designer.cs">
+      <DependentUpon>202102141100257_TAbleFieldsChanged.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -230,6 +254,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102131142311_CustomerNameColumnAdded.resx">
       <DependentUpon>202102131142311_CustomerNameColumnAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102141038421_ReturnProductsTableAdded.resx">
+      <DependentUpon>202102141038421_ReturnProductsTableAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102141041024_NewTableAdded.resx">
+      <DependentUpon>202102141041024_NewTableAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102141043424_ReturnProductsTableAdded1.resx">
+      <DependentUpon>202102141043424_ReturnProductsTableAdded1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102141047571_tableAdded1.resx">
+      <DependentUpon>202102141047571_tableAdded1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102141056245_tableAdd.resx">
+      <DependentUpon>202102141056245_tableAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102141100257_TAbleFieldsChanged.resx">
+      <DependentUpon>202102141100257_TAbleFieldsChanged.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

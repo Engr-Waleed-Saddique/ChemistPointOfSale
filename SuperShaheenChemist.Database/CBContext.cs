@@ -29,7 +29,8 @@ namespace SuperShaheenChemist.Database
         public DbSet<StockInventry> StockInventries { get; set; }
         public DbSet<PurchaseOrder> PurchaseOrders { get; set; }
         public DbSet<PurchaseOrderMaster> OrderMaster { get; set; }
-
         public DbSet<PurchaseProductsMaster> PurchaseProductMaster { get; set; }
+        public DbSet<ReturnSales> ReturnSales { get; set; }
+
     }
 }

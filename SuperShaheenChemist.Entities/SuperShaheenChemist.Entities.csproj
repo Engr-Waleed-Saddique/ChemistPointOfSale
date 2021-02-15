@@ -57,6 +57,7 @@
     <Compile Include="PurchaseProducts.cs" />
     <Compile Include="PurchaseProductsMaster.cs" />
     <Compile Include="ReturnPurchase.cs" />
+    <Compile Include="ReturnSales.cs" />
     <Compile Include="SaleProducts.cs" />
     <Compile Include="StockInventry.cs" />
   </ItemGroup>

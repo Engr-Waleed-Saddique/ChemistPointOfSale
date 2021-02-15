@@ -99,6 +99,7 @@ namespace SuperShaheenChemist.Services
             }
         }
 
+
         public void AddTransaction(PurchaseProductsMaster ob)
         {
             using (var context=new CBContext())
@@ -130,6 +131,71 @@ namespace SuperShaheenChemist.Services
             using (var context = new CBContext())
             {
                  return context.OrderItems.Where(x => x.OrderID == id).Include(x=>x.Product).ToList();
+            }
+        }
+
+        public void AddMedicineType(string type)
+        {
+            MedicineType ob = new MedicineType();
+            ob.Name = type;
+
+            using (var context = new CBContext())
+            {
+                context.Types.Add(ob);
+                context.SaveChanges();
+            }
+        }
+
+        public void SaveCompany(string company)
+        {
+            Company ob = new Company();
+            ob.Name = company;
+
+            using (var context = new CBContext())
+            {
+                context.Companies.Add(ob);
+                context.SaveChanges();
+            }
+        }
+        public void SaveDistributor(string distributor)
+        {
+            Distributor ob = new Distributor();
+            ob.Name = distributor;
+
+            using (var context = new CBContext())
+            {
+                context.Distributors.Add(ob);
+                context.SaveChanges();
+            }
+        }
+
+        public void SaveCategory(string category)
+        {
+            Category ob = new Category();
+            ob.Name = category;
+
+            using (var context = new CBContext())
+            {
+                context.Categories.Add(ob);
+                context.SaveChanges();
+            }
+        }
+
+        public void DeleteReturnItem(int recordID)
+        {
+            using (var context=new CBContext())
+            {
+                var product = context.OrderItems.Find(recordID);
+                context.OrderItems.Remove(product);
+                context.SaveChanges();
+            }
+        }
+        public void UpdateReturnItem(OrderItem item)
+        {
+            using (var context = new CBContext())
+            {
+                context.Entry(item).State = EntityState.Modified;
+                context.SaveChanges();
             }
         }
     }

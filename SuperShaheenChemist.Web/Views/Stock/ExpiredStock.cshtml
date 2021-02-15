@@ -1,9 +1,9 @@
 ﻿@{
     ViewBag.Title = "Expired Stock";
 }
-<link href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
-<link href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css" rel="stylesheet" type="text/css" />
-<link href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/Css/datatable.min.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/Css/responsive.datatable.min.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/Css/button.datatable.css" rel="stylesheet" type="text/css" />
 
 <h2>Expired Stock</h2>
 <style>
@@ -45,45 +45,42 @@
         </div>
     </div>
 </div>
-<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+<script src="~/Content/Js/dataTables.min.js"></script>
+<script src="~/Content/Js/dataTables.responsive.min.js"></script>
+<script src="~/Content/Js/buttons.html5.js"></script>
+<script src="~/Content/Js/pdfmake.min.js"></script>
+<script src="~/Content/Js/vfs_fonts.js"></script>
 <!-- Below file is showing print button if this version is not used button will hide-->
-<script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.colVis.min.js"></script>
-<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.colVis.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
-
-
+<script src="~/Content/Js/dataTables.buttons.js"></script>
+<script src="~/Content/Js/colVis.min.js"></script>
+<script src="~/Content/Js/jszip.min.js"></script>
+<script src="~/Content/Js/buttons.print.min.js"></script>
 <script>
     $(document).ready(function () {
 
         $('#purchaseItems').DataTable(
             {
-            dom: 'Blfrtip',
-            buttons: [
-            'colvis',
-            {
-                extend: 'excel',
-                exportOptions: {
-                    columns: [0, 1, 2, 3, 4]
-                }
-            },
-            {
-                extend: 'pdf',
-                exportOptions: {
-                    columns: [0, 1, 2, 3, 4]
-                }
-            },
-            {
-                extend: 'print',
-                exportOptions: {
-                    columns: [0, 1, 2, 3, 4]
-                }
-            }
+                dom: 'Blfrtip',
+                buttons: [
+                    'colvis',
+                    {
+                        extend: 'excel',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4]
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4]
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4]
+                        }
+                    }
 
                 ]
             }

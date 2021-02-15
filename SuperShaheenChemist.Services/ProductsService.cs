@@ -182,5 +182,7 @@ namespace SuperShaheenChemist.Services
                 return context.StockInventries.Include(x=>x.Product).ToList();
             }
         }
+
+        
     }
 }

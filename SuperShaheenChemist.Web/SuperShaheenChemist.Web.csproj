@@ -217,8 +217,22 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Css\button.datatable.css" />
+    <Content Include="Content\Css\GoogleFonts.css" />
+    <Content Include="Content\Css\jquery-ui.css" />
+    <Content Include="Content\Css\responsive.datatable.min.css" />
     <Content Include="Content\Images\pharmacy.png" />
     <Content Include="Content\Images\pharmacyicon.jpg" />
+    <Content Include="Content\Js\buttons.html5.js" />
+    <Content Include="Content\Js\buttons.print.min.js" />
+    <Content Include="Content\Js\colVis.min.js" />
+    <Content Include="Content\Js\dataTables.buttons.js" />
+    <Content Include="Content\Js\dataTables.min.js" />
+    <Content Include="Content\Js\dataTables.responsive.min.js" />
+    <Content Include="Content\Js\jquery-ui.js" />
+    <Content Include="Content\Js\jszip.min.js" />
+    <Content Include="Content\Js\pdfmake.min.js" />
+    <Content Include="Content\Js\vfs_fonts.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Client\build\config\postcss.config.js" />
@@ -2092,6 +2106,7 @@
     <Content Include="Client\bootstrap\js\bootstrap.js.map" />
     <Content Include="Client\bootstrap\js\bootstrap.min.js.map" />
     <Content Include="Content\Js\Jquery.js" />
+    <Content Include="Content\Css\datatable.min.css" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2153,6 +2168,9 @@
     <Content Include="Views\Purchase\GetPurchaseProductDetails.cshtml" />
     <Content Include="Views\Invoice\CreateInvoice.cshtml" />
     <Content Include="Views\Invoice\PreviewReceipt.cshtml" />
+    <Content Include="Views\Invoice\ViewInvoices.cshtml" />
+    <Content Include="Views\Invoice\ViewReceipt.cshtml" />
+    <Content Include="Views\Invoice\ReturnSales.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

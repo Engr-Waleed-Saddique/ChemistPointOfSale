@@ -53,10 +53,11 @@
                                     </div>
                                 </div>
                             </div>
+                            <h4 class="purchase-heading"> <i class="fa fa-check-circle"></i> Medicine Type</h4>
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label> Type: <a onclick="show_modal_page('https://medix.spantiklab.com/product/popup/add_product_type_model')" href="javascript:void(0)"> (Add Type)</a></label>
+                                        <label><a href="#" class="" data-toggle="modal" data-target="#MedicineTypeModal">(add Type)</a></label>
                                         <select class="form-control select2" name="MedicineTypeId" id="category_id" style="width: 100%;">
                                             <option value="">Select Type</option>
                                             @foreach (var type in Model.medicinesTypes)
@@ -67,22 +68,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>Upload item image:</label>
-                                        <div class="input-group">
-                                            <input type="file" name="ImageURL" data-validate="required" class="form-control input-lg" data-message-required="Value Required">
-                                        </div>
-                                    </div>
-                                    <small>Product scan or captured image ?</small>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>Discount (%): </label>
-                                        <input type="number" name="CustDiscount" value="" class="form-control input-lg" id="" placeholder="e.g 5" step="any" />
-                                    </div>
-                                    <small>Discount offer to customers in % </small>
-                                </div>
+
                             </div>
                         </div>
                         <div class="box-body">
@@ -90,7 +76,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label> Company: <a onclick="show_modal_page('https://medix.spantiklab.com/product/popup/add_brand_model')" href="javascript:void(0)"> (add Company)</a></label>
+                                        <label><a href="#" data-toggle="modal" data-target="#CompanyModal">(add Company)</a></label>
                                         <select class="form-control select2" name="CompanyId" id="category_id" style="width: 100%;">
                                             <option value="">Select Company</option>
                                             @foreach (var company in Model.companies)
@@ -102,7 +88,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label> Distributor: <a onclick="show_modal_page('https://medix.spantiklab.com/product/popup/add_brand_sector')" href="javascript:void(0)"> (add Distributor)</a></label>
+                                        <label><a href="#" class="" data-toggle="modal" data-target="#DistributorModal">(add Distributor)</a></label>
                                         <select class="form-control select2" name="DistributorId" id="category_id" style="width: 100%;">
                                             <option value="">Select Distributor</option>
                                             @foreach (var distributor in Model.distributors)
@@ -114,7 +100,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label> Category: <a onclick="show_modal_page('https://medix.spantiklab.com/product/popup/add_category_model')" href="javascript:void(0)"> (add category)</a></label>
+                                        <label><a href="#" data-toggle="modal" data-target="#CategoryModal">(add Category)</a></label>
                                         <select class="form-control select2" name="CategoryId" id="category_id" style="width: 100%;">
                                             <option value="">Select Category</option>
                                             @foreach (var category in Model.categories)
@@ -230,58 +216,93 @@
             </div>
         </div>
     </section>
-    <!-- Bootstrap model  -->
-    <style>
-        .modal-backdrop {
-            z-index: -1;
-        }
-    </style>
+</div>
 
-    @*<script type="text/javascript">
-            function show_modal_page(url) {
-                // SHOWING AJAX PRELOADER IMAGE
-                jQuery('#page_model_view_data .modal-body').html('<div style="text-align:center;margin-top:200px;"><img src="https://medix.spantiklab.com/assets/img/loader-1.gif" style="height:25px;" /></div>');
+@*Modal Section Start*@
 
-                // LOADING THE AJAX MODAL
-                jQuery('#page_model_view_data').modal('show', { backdrop: 'true' });
-
-                // SHOW AJAX RESPONSE ON REQUEST SUCCESS
-                $.ajax({
-                    url: url,
-                    success: function (response) {
-                        //alert(response);
-                        jQuery('#page_model_view_data .modal-body').html(response);
-                    }
-                });
-            }
-
-            function add_new_row(url) {
-                // SHOW AJAX RESPONSE ON REQUEST SUCCESS
-                $.ajax({
-                    url: url,
-                    success: function (response) {
-                        //alert(response);
-                        jQuery('#transaction_table_body').append(response);
-                    }
-                });
-            }
-
-        </script>*@
-
-    <!-- (Ajax Modal)-->
-    <div class="modal fade" id="page_model_view_data">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-body" style="height:500px; overflow:auto;">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+<div class="modal fade" id="MedicineTypeModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><h2>Add Product Type</h2></div>
+            <div class="modal-body">
+                <form id="supplierForm">
+                    <label>Add Medicine Type</label><br />
+                    <input type="text" class="form-control" id="medicineType" placeholder="Enter Type of Medicine" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group">
+                    <a href="#" id="btnSave" class="btn btn-primary mr-2">Save</a>
+                    <a href="#" id="btnCancel" class="btn btn-danger">Cancel</a>
                 </div>
             </div>
         </div>
-    </div><!-- Bootstrap model  ends-->
+    </div>
 </div>
+<div class="modal fade" id="CompanyModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><h2>Add Company</h2></div>
+            <div class="modal-body">
+                <form id="supplierForm">
+                    <label>Add Company</label><br />
+                    <input type="text" class="form-control" id="company" placeholder="Enter Company" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group">
+                    <a href="#" id="btnSaveCompany" class="btn btn-primary mr-2">Save</a>
+                    <a href="#" id="btnCancelCompany" class="btn btn-danger">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="DistributorModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><h2>Add Distributor</h2></div>
+            <div class="modal-body">
+                <form id="distributorForm">
+                    <label>Add Distributor</label><br />
+                    <input type="text" class="form-control" id="distributor" placeholder="Enter Distributor" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group">
+                    <a href="#" id="btnSaveDistributor" class="btn btn-primary mr-2">Save</a>
+                    <a href="#" id="btnCancelDistributor" class="btn btn-danger">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="CategoryModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><h2>Add Category</h2></div>
+            <div class="modal-body">
+                <form id="distributorForm">
+                    <label>Add Category</label><br />
+                    <input type="text" class="form-control" id="category" placeholder="Enter Category" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group">
+                    <a href="#" id="btnSaveCategory" class="btn btn-primary mr-2">Save</a>
+                    <a href="#" id="btnCancelCategory" class="btn btn-danger">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@*Modal Section End*@
 <script src="~/Client/dist/js/sweetalert.min.js"></script>
 <!-- /.content-wrapper -->
 <!-- ./wrapper -->
@@ -363,6 +384,61 @@
         }
 
     });
+    $("#btnCancel").click(function () {
+        $('#MedicineTypeModal').modal('toggle');
+    });
+    $("#btnCancelCompany").click(function () {
+        $('#CompanyModal').modal('toggle');
+    });
+    $("#btnCancelDistributor").click(function () {
+        $('#DistributorModal').modal('toggle');
+    });
+    $("#btnCancelCategory").click(function () {
+        $('#CategoryModal').modal('toggle');
+    });
+    $("#btnSave").click(function () {
+        $.ajax({
+            type: "GET",
+            url: "/Product/SaveMedicineType",
+            data: {type: $("#medicineType").val() },
+            success: function () {
+                window.location.href = "/Product/add_new_product";
+            }
+        })
 
+    });
+    $("#btnSaveCompany").click(function () {
+        $.ajax({
+            type: "GET",
+            url: "/Product/SaveCompany",
+            data: { company: $("#company").val() },
+            success: function () {
+                window.location.href = "/Product/add_new_product";
+            }
+        })
+    });
 
+   
+    $("#btnSaveDistributor").click(function () {
+        $.ajax({
+            type: "GET",
+            url: "/Product/SaveDistributor",
+            data: { distributor: $("#distributor").val() },
+            success: function () {
+                window.location.href = "/Product/add_new_product";
+            }
+        })
+    });
+    $("#btnSaveCategory").click(function () {
+        $.ajax({
+            type: "GET",
+            url: "/Product/SaveCategory",
+            data: { category: $("#category").val() },
+            success: function () {
+                window.location.href = "/Product/add_new_product";
+            }
+        })
+    });
 </script>
+
+

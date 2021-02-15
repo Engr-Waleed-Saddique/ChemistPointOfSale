@@ -1,5 +1,5 @@
-﻿<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/themes/start/jquery-ui.css"></script>
+﻿<script src="~/Content/Js/jquery-ui.js"></script>
+<link href="~/Content/Css/jquery-ui.css" rel="stylesheet" />
 @{
     ViewBag.Title = "Create Invoice";
 }
@@ -57,7 +57,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="col-md-12 text-right">
         <button id="submit" class="btn btn-primary"><i class="fa fa-print" aria-hidden="true"></i> Save & Print</button>
     </div>
@@ -65,11 +65,20 @@
 </div>
 <script>
     $(document).ready(function () {
-        
+
         var rowCount = $('#purchaseItems tbody tr').length;
         if (rowCount < 1) {
             $("#submit").hide();
         }
+        window.addEventListener("pageshow", function (event) {
+            var historyTraversal = event.persisted ||
+                (typeof window.performance != "undefined" &&
+                    window.performance.navigation.type === 2);
+            if (historyTraversal) {
+
+                window.location.reload();
+            }
+        });
         $('#searchProduct').autocomplete({
             source: function (request, response) {
                 $.ajax({
@@ -91,7 +100,7 @@
                 $('#searchProduct').val('');
                 $product_id = ui.item.value;
                 addRecordToTable($product_id);
-                
+
             },
             focus: function (event, ui) {
                 return false;
@@ -165,7 +174,7 @@
                         url: "/Invoice/GetUnitPrice",
                         data: { BatchNo: batchno },
                         success: function (data) {
-      
+
                             if (parentElement.find("input[name='discount']").val() == "") {
                                 var total = parseInt(parentElement.find('td:eq(8)').text());
                                 total = parseFloat(total);
@@ -426,7 +435,8 @@
                     success: function (data) {
                         $("#items").empty();
                         $("#submit").hide();
-                        window.location.href = "/Invoice/PreviewReceipt/"+data+"";
+                        $("#customerName").val("");
+                        window.location.href = "/Invoice/PreviewReceipt/" + data + "";
                     },
                     error: function (data) {
                         alert("Data transfer failed");
