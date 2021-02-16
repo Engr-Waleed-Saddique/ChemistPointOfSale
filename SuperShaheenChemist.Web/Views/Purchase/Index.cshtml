@@ -182,6 +182,7 @@
 
                         var input = parentElement.find('input').val();
                         var value = parentElement.find('td:eq(4)').text();
+                        parentElement.find('input.prodId').val(data.Id);
                         parentElement.find('td:eq(5)').html(input * value);
                     }
                 }

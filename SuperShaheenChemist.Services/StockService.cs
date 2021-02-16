@@ -32,7 +32,6 @@ namespace SuperShaheenChemist.Services
             {
                 if (context.StockInventries.Any(x => x.ProductId == stock.ProductId && x.BatchNo==stock.BatchNo))
                 {
-
                     var data = context.StockInventries.Where(x => x.ProductId == stock.ProductId && x.BatchNo == stock.BatchNo).FirstOrDefault();
                     data.Stock = data.Stock + stock.Stock;
                     data.Received = (data.Received + stock.Received);
@@ -73,7 +72,17 @@ namespace SuperShaheenChemist.Services
                     var data = context.StockInventries.Where(x => x.ProductId == stock.ProductId && x.BatchNo == stock.BatchNo).FirstOrDefault();
                     data.Stock = (data.Stock - stock.Stock);
                     data.TotalAmount = (data.TotalAmount - stock.TotalAmount);
-
+                    data.Sale = (data.Sale + stock.Sale);
+                    data.LooseSale = (data.LooseSale + stock.LooseSale);
+                    //code to minus the pack if loose sale is equal to pack size
+                    var temp = context.Products.Where(x => x.Id == stock.ProductId && x.BatchNo == stock.BatchNo).FirstOrDefault();
+                    if(data.LooseSale>=temp.PackSize)
+                    {
+                        data.Stock = data.Stock - 1;
+                        data.Sale = data.Sale + 1;
+                        data.LooseSale = (int)(data.LooseSale - temp.PackSize);
+                    }
+                    //ends here
                     context.Entry(data).State = System.Data.Entity.EntityState.Modified;
                     context.SaveChanges();
                 }
@@ -96,5 +105,32 @@ namespace SuperShaheenChemist.Services
             }
             return filterstock;
         }
+
+        public StockInventry GetStockById(int productId)
+        {
+            using (var context=new CBContext())
+            {
+                return context.StockInventries.Where(x => x.ProductId == productId).FirstOrDefault();
+            }
+        }
+
+        public void updateStock(StockInventry temp)
+        {
+            using (var context = new CBContext())
+            {
+                //code to minus the pack if loose sale is equal to pack size
+                var productRecord = context.Products.Where(x => x.Id == temp.ProductId && x.BatchNo == temp.BatchNo).FirstOrDefault();
+                if (temp.LooseSale >= productRecord.PackSize)
+                {
+                    temp.Stock = temp.Stock + 1;
+                    temp.Sale = temp.Sale - 1;
+                    temp.LooseSale = (int)(temp.LooseSale - productRecord.PackSize);
+                }
+                //ends here
+                context.Entry(temp).State = System.Data.Entity.EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
     }
 }
+

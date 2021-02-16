@@ -15,7 +15,8 @@ namespace SuperShaheenChemist.Entities
         public virtual Product Product { get; set; }
         public int Received { get; set; }
         public int Sale { get; set; }
-        public int Stock { get; set; }
+        public int Stock { get; set; } //this stock is for pack stock
+        public int LooseSale { get; set; } //this is for loose data save.
         public int Return { get; set; }
         public decimal Price { get; set; }
         public int TotalAmount { get; set; }

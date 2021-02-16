@@ -259,28 +259,40 @@ namespace SuperShaheenChemist.Web.Controllers
         {
             JavaScriptSerializer js = new JavaScriptSerializer();
             ReturnItemsViewModel returnObject = js.Deserialize<ReturnItemsViewModel>(ReturnItems);
-            
+            var temp = StockService.Instance.GetStockById(returnObject.ProductId);
             if (returnObject.Quantity != 0 && returnObject.Loose==0 && returnObject.Discount==0)
             {
+                //done
                 var ob = SaleService.Instance.GetOrderItem(returnObject.RecordID);
-                if (returnObject.Quantity==ob.Quantity)
+                if (returnObject.Quantity==ob.Quantity && returnObject.Loose == ob.Loose)
                 {
                     PurchaseService.Instance.DeleteReturnItem(returnObject.RecordID);
+                    temp.Stock = temp.Stock + returnObject.Quantity;
+                    temp.TotalAmount = (int)(temp.TotalAmount + returnObject.ReturnAmount);
+                    StockService.Instance.updateStock(temp);
                 }
                 else
                 {
                     ob.Quantity = (ob.Quantity-returnObject.Quantity);
                     ob.Amount = (ob.Amount - returnObject.ReturnAmount);
-
                     PurchaseService.Instance.UpdateReturnItem(ob);
+                    temp.Stock = temp.Stock + returnObject.Quantity;
+                    temp.TotalAmount = (int)(temp.TotalAmount + returnObject.ReturnAmount);
+                    StockService.Instance.updateStock(temp);
                 }
             }
             if (returnObject.Quantity != 0 && returnObject.Loose != 0 && returnObject.Discount != 0)
             {
+                //done
                 var ob = SaleService.Instance.GetOrderItem(returnObject.RecordID);
                 if (returnObject.Quantity == ob.Quantity && returnObject.Loose==ob.Loose)
                 {
                     PurchaseService.Instance.DeleteReturnItem(returnObject.RecordID);
+                    temp.Stock = temp.Stock + returnObject.Quantity;
+                    temp.LooseSale = temp.LooseSale - returnObject.Loose;
+                    temp.TotalAmount = (int)(temp.TotalAmount + returnObject.ReturnAmount);
+                    StockService.Instance.updateStock(temp);
+
                 }
                 else
                 {
@@ -288,14 +300,23 @@ namespace SuperShaheenChemist.Web.Controllers
                     ob.Amount = (ob.Amount - returnObject.ReturnAmount);
                     ob.Loose = (ob.Loose - returnObject.Loose);
                     PurchaseService.Instance.UpdateReturnItem(ob);
+                    temp.Stock = temp.Stock + returnObject.Quantity;
+                    temp.LooseSale = temp.LooseSale - returnObject.Loose;
+                    temp.TotalAmount = (int)(temp.TotalAmount + returnObject.ReturnAmount);
+                    StockService.Instance.updateStock(temp);
                 }
             }
             if (returnObject.Quantity != 0 && returnObject.Loose != 0 && returnObject.Discount == 0)
             {
+                //done
                 var ob = SaleService.Instance.GetOrderItem(returnObject.RecordID);
                 if (returnObject.Quantity == ob.Quantity && returnObject.Loose == ob.Loose)
                 {
                     PurchaseService.Instance.DeleteReturnItem(returnObject.RecordID);
+                    temp.Stock = temp.Stock + returnObject.Quantity;
+                    temp.LooseSale = temp.LooseSale - returnObject.Loose;
+                    temp.TotalAmount = (int)(temp.TotalAmount + returnObject.ReturnAmount);
+                    StockService.Instance.updateStock(temp);
                 }
                 else
                 {
@@ -303,49 +324,74 @@ namespace SuperShaheenChemist.Web.Controllers
                     ob.Amount = (ob.Amount - returnObject.ReturnAmount);
                     ob.Loose = (ob.Loose - returnObject.Loose);
                     PurchaseService.Instance.UpdateReturnItem(ob);
+                    temp.Stock = temp.Stock + returnObject.Quantity;
+                    temp.LooseSale = temp.LooseSale - returnObject.Loose;
+                    temp.TotalAmount = (int)(temp.TotalAmount + returnObject.ReturnAmount);
+                    StockService.Instance.updateStock(temp);
                 }
             }
             if (returnObject.Quantity == 0 && returnObject.Loose != 0 && returnObject.Discount != 0)
             {
+                //done
                 var ob = SaleService.Instance.GetOrderItem(returnObject.RecordID);
                 if (returnObject.Quantity == ob.Quantity && returnObject.Loose == ob.Loose)
                 {
                     PurchaseService.Instance.DeleteReturnItem(returnObject.RecordID);
+                    temp.LooseSale = temp.LooseSale - returnObject.Loose;
+                    temp.TotalAmount = (int)(temp.TotalAmount + returnObject.ReturnAmount);
+                    StockService.Instance.updateStock(temp);
                 }
                 else
                 {
                     ob.Amount = (ob.Amount - returnObject.ReturnAmount);
                     ob.Loose = (ob.Loose - returnObject.Loose);
                     PurchaseService.Instance.UpdateReturnItem(ob);
+                    temp.LooseSale = temp.LooseSale - returnObject.Loose;
+                    temp.TotalAmount = (int)(temp.TotalAmount + returnObject.ReturnAmount);
+                    StockService.Instance.updateStock(temp);
 
                 }
             }
             if (returnObject.Quantity == 0 && returnObject.Loose != 0 && returnObject.Discount == 0)
             {
+                //done
                 var ob = SaleService.Instance.GetOrderItem(returnObject.RecordID);
                 if (returnObject.Quantity == ob.Quantity && returnObject.Loose == ob.Loose)
                 {
                     PurchaseService.Instance.DeleteReturnItem(returnObject.RecordID);
+                    temp.LooseSale = temp.LooseSale - returnObject.Loose;
+                    temp.TotalAmount = (int)(temp.TotalAmount + returnObject.ReturnAmount);
+                    StockService.Instance.updateStock(temp);
                 }
                 else
                 {
                     ob.Loose = (ob.Loose - returnObject.Loose);
                     ob.Amount = (ob.Amount - returnObject.ReturnAmount);
                     PurchaseService.Instance.UpdateReturnItem(ob);
+                    temp.LooseSale = temp.LooseSale - returnObject.Loose;
+                    temp.TotalAmount = (int)(temp.TotalAmount + returnObject.ReturnAmount);
+                    StockService.Instance.updateStock(temp);
                 }
             }
             if (returnObject.Quantity != 0 && returnObject.Loose == 0 && returnObject.Discount != 0)
             {
+                //done
                 var ob = SaleService.Instance.GetOrderItem(returnObject.RecordID);
                 if (returnObject.Quantity == ob.Quantity && returnObject.Loose == ob.Loose)
                 {
                     PurchaseService.Instance.DeleteReturnItem(returnObject.RecordID);
+                    temp.Stock = temp.Stock + returnObject.Quantity;
+                    temp.TotalAmount = (int)(temp.TotalAmount + returnObject.ReturnAmount);
+                    StockService.Instance.updateStock(temp);
                 }
                 else
                 {
                     ob.Quantity = (ob.Quantity - returnObject.Quantity);
                     ob.Amount = (ob.Amount - returnObject.ReturnAmount);
                     PurchaseService.Instance.UpdateReturnItem(ob);
+                    temp.Stock = temp.Stock + returnObject.Quantity;
+                    temp.TotalAmount = (int)(temp.TotalAmount + returnObject.ReturnAmount);
+                    StockService.Instance.updateStock(temp);
                 }
             }
             return Json("Success");

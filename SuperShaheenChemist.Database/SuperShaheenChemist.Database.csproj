@@ -169,6 +169,10 @@
     <Compile Include="Migrations\202102141100257_TAbleFieldsChanged.Designer.cs">
       <DependentUpon>202102141100257_TAbleFieldsChanged.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102160455029_LooseSaleAddedInStockInventry.cs" />
+    <Compile Include="Migrations\202102160455029_LooseSaleAddedInStockInventry.Designer.cs">
+      <DependentUpon>202102160455029_LooseSaleAddedInStockInventry.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -272,6 +276,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102141100257_TAbleFieldsChanged.resx">
       <DependentUpon>202102141100257_TAbleFieldsChanged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102160455029_LooseSaleAddedInStockInventry.resx">
+      <DependentUpon>202102160455029_LooseSaleAddedInStockInventry.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

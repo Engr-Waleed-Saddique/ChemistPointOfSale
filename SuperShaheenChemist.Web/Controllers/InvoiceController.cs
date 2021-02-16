@@ -35,7 +35,7 @@ namespace SuperShaheenChemist.Web.Controllers
         public ActionResult GetExpiry(string batchNo)
         {
             var products = ProductsService.Instance.GetProducts();
-            var ob = products.Where(x => x.BatchNo.Trim().ToLower() == batchNo.Trim().ToLower()).Select(x => new { x.ExpiryDate, x.PackRetailCost }).FirstOrDefault();
+            var ob = products.Where(x => x.BatchNo.Trim().ToLower() == batchNo.Trim().ToLower()).Select(x => new { x.ExpiryDate, x.PackRetailCost,x.Id }).FirstOrDefault();
             return Json(ob, JsonRequestBehavior.AllowGet);
         }
 
@@ -116,7 +116,21 @@ namespace SuperShaheenChemist.Web.Controllers
                 {
                     if (item.Amount != "")
                     {
-                        stock.TotalAmount = int.Parse(item.Amount);
+                        //stock.TotalAmount = int.Parse(item.Amount);
+                        stock.TotalAmount= (int)Convert.ToInt64(Math.Floor(Convert.ToDouble(item.Amount)));
+                    }
+                }
+                catch (Exception)
+                {
+                    stock.TotalAmount = 0;
+                }
+
+                try
+                {
+                    if (item.Quantity != "")
+                    {
+                        stock.Stock = int.Parse(item.Quantity);
+                        stock.Sale = int.Parse(item.Quantity);
                     }
                 }
                 catch (Exception)
@@ -126,15 +140,18 @@ namespace SuperShaheenChemist.Web.Controllers
 
                 try
                 {
-                    if (item.Quantity != "")
+                    if (item.Loose != "")
                     {
-                        stock.Stock = int.Parse(item.Quantity);
+                        stock.LooseSale = int.Parse(item.Loose);
                     }
                 }
                 catch (Exception)
                 {
-                    stock.Stock = 0;
+                    stock.LooseSale = 0;
                 }
+
+
+
                 StockService.Instance.SaleProductsDeductedFromStock(stock);
             }
             int orderId = PurchaseService.Instance.OrdersMaxID();

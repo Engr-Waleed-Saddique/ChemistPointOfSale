@@ -19,6 +19,7 @@ namespace SuperShaheenChemist.Web.ViewModels
     public class ReturnItemsViewModel
     {
         public int RecordID { get; set; }
+        public int ProductId { get; set; }
         public int Quantity { get; set; }
         public int Loose { get; set; }
         public int Discount { get; set; }

@@ -114,7 +114,7 @@ $(document).ready(function () {
                 });
             },
             error: function (data) {
-                alert("Data transfer failed");
+                swal("Failed","Please enter correct Bill No","error");
             }
         });
     });
@@ -129,6 +129,7 @@ $(document).ready(function () {
         quantityReturn = parentElement.find('input.quan').val();
         looseReturn = parentElement.find('input.loose').val();
         var discount = parentElement.find('input.discount').val();
+        var PId = parseInt(parentElement.find('input.productId').val());
         var amountDeducted = 0;
         var perItemCost = 0;
         if (quantityReturn == "" && looseReturn != "" && discount == "") {
@@ -151,6 +152,7 @@ $(document).ready(function () {
                             Loose: parseInt(parentElement.find('input.loose').val()),
                             Discount: 0,
                             ReturnAmount: amountDeducted,
+                            ProductId: PId
                         };
                         $.ajax({
                             type: 'POST',
@@ -202,6 +204,7 @@ $(document).ready(function () {
                             Loose: parseInt(parentElement.find('input.loose').val()),
                             Discount: parseInt(parentElement.find('input.discount').val()),
                             ReturnAmount: amountDeducted,
+                            ProductId: PId
                         };
                         $.ajax({
                             type: 'POST',
@@ -250,6 +253,7 @@ $(document).ready(function () {
                             Loose: parseInt(parentElement.find('input.loose').val()),
                             Discount: 0,
                             ReturnAmount: amountDeducted,
+                            ProductId: PId
                         };
                         $.ajax({
                             type: 'POST',
@@ -295,8 +299,8 @@ $(document).ready(function () {
                             Loose: 0,
                             Discount: 0,
                             ReturnAmount: amountDeducted,
+                            ProductId: PId
                         };
-                        
                         $.ajax({
                             type: 'POST',
                             url: '/Purchase/ReturnItems',
@@ -342,6 +346,7 @@ $(document).ready(function () {
                             Loose: parseInt(parentElement.find('input.loose').val()),
                             Discount: parseInt(parentElement.find('input.discount').val()),
                             ReturnAmount: amountDeducted,
+                            ProductId: PId
                         };
                         $.ajax({
                             type: 'POST',
@@ -390,6 +395,7 @@ $(document).ready(function () {
                             Loose: 0,
                             Discount: parseInt(parentElement.find('input.discount').val()),
                             ReturnAmount: amountDeducted,
+                            ProductId: PId
                         };
                         $.ajax({
                             type: 'POST',
@@ -421,5 +427,6 @@ $(document).ready(function () {
         
     }
     );
+    
 });
 </script>
