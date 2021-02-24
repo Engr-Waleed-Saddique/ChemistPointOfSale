@@ -116,6 +116,7 @@ namespace SuperShaheenChemist.Web.Controllers
             ViewBag.data = products;
             return View();
         }
+
         public ActionResult Stock()
         {
             var products = ProductsService.Instance.getStock();
@@ -142,6 +143,25 @@ namespace SuperShaheenChemist.Web.Controllers
             PurchaseService.Instance.SaveCategory(category);
             return Json("", JsonRequestBehavior.AllowGet);
         }
-
+        public ActionResult showCompanyDropDownList()
+        {
+           var data= CompanyService.Instance.GetAllCompanies();
+           return Json(data,JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GetDistributor()
+        {
+            var data = DistributorService.Instance.GetAllDistributors();
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GetCategories()
+        {
+            var data = CategoriesService.Instance.GetAllCategories();
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GetMedicineTypes()
+        {
+            var data = MedicineTypeService.Instance.GetAllMedicineTypes();
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
     }
 }

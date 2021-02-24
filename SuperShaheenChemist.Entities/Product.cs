@@ -18,7 +18,7 @@ namespace SuperShaheenChemist.Entities
         public int MedicineTypeId { get; set; }  
         public string ImageURL { get; set; }  
         public decimal CustDiscount { get; set; } 
-        public int CompanyId { get; set; } 
+        public int CompanyId { get; set; }
         public int DistributorId { get; set; }
         public int CategoryId { get; set; } 
         public decimal MinStock { get; set; } 

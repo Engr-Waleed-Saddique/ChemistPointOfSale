@@ -2,8 +2,8 @@
     ViewBag.Title = "Return Products";
 }
 <h2>Return Products</h2>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/themes/start/jquery-ui.css"></script>
+<script src="~/Content/Js/jquery-ui.js"></script>
+<link href="~/Content/Css/jquery-ui.css" rel="stylesheet" />
 <script src="~/Client/plugins/jquery-validation/jquery.validate.min.js"></script>
 <div class="content-wrapper">
     <!-- pages navigates here -->
@@ -161,7 +161,7 @@ $(document).ready(function () {
                             async: false,
                             contenttype: "application/json",
                             success: function (data) {
-
+                                parentElement.remove();
                                 swal("Returned!", "Item Return Successfully!", "success");
                                 
                             },
@@ -213,7 +213,7 @@ $(document).ready(function () {
                             async: false,
                             contenttype: "application/json",
                             success: function (data) {
-
+                                parentElement.remove();
                                 swal("Returned!", "Item Return Successfully!", "success");
                             },
                             error: function (data) {
@@ -262,7 +262,7 @@ $(document).ready(function () {
                             async: false,
                             contenttype: "application/json",
                             success: function (data) {
-
+                                parentElement.remove();
                                 swal("Returned!", "Item Return Successfully!", "success");
                             },
                             error: function (data) {
@@ -308,7 +308,7 @@ $(document).ready(function () {
                             async: false,
                             contenttype: "application/json",
                             success: function (data) {
-
+                                parentElement.remove();
                                 swal("Returned!", "Item Return Successfully!", "success");
                             },
                             error: function (data) {
@@ -355,7 +355,7 @@ $(document).ready(function () {
                             async: false,
                             contenttype: "application/json",
                             success: function (data) {
-
+                                parentElement.remove();
                                 swal("Returned!", "Item Return Successfully!", "success");
                             },
                             error: function (data) {
@@ -404,7 +404,7 @@ $(document).ready(function () {
                             async: false,
                             contenttype: "application/json",
                             success: function (data) {
-
+                                parentElement.remove();
                                 swal("Returned!", "Item Return Successfully!", "success");
                             },
                             error: function (data) {

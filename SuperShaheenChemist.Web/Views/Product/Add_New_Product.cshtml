@@ -40,7 +40,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Barcode:</label>
-                                        <input type="text" name="BarCode" value="" class="form-control input-lg" placeholder="e.g 000025444255658" reqiured="" />
+                                        <input type="text" name="BarCode" value="" id="barcode" class="form-control input-lg" placeholder="e.g 000025444255658" reqiured="" />
                                     </div>
                                 </div>
 
@@ -58,7 +58,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label><a href="#" class="" data-toggle="modal" data-target="#MedicineTypeModal">(add Type)</a></label>
-                                        <select class="form-control select2" name="MedicineTypeId" id="category_id" style="width: 100%;">
+                                        <select class="form-control select2" name="MedicineTypeId" id="medicine_id" style="width: 100%;">
                                             <option value="">Select Type</option>
                                             @foreach (var type in Model.medicinesTypes)
                                             {
@@ -77,7 +77,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label><a href="#" data-toggle="modal" data-target="#CompanyModal">(add Company)</a></label>
-                                        <select class="form-control select2" name="CompanyId" id="category_id" style="width: 100%;">
+                                        <select class="form-control select2" name="CompanyId" id="company_id" style="width: 100%;">
                                             <option value="">Select Company</option>
                                             @foreach (var company in Model.companies)
                                             {
@@ -89,7 +89,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label><a href="#" class="" data-toggle="modal" data-target="#DistributorModal">(add Distributor)</a></label>
-                                        <select class="form-control select2" name="DistributorId" id="category_id" style="width: 100%;">
+                                        <select class="form-control select2" name="DistributorId" id="distributor_id" style="width: 100%;">
                                             <option value="">Select Distributor</option>
                                             @foreach (var distributor in Model.distributors)
                                             {
@@ -354,6 +354,14 @@
         }
     }
     );
+
+
+    $("#barcode").keypress(function (event) {
+        if (event.which == '10' || event.which == '13') {
+            event.preventDefault();
+        }
+    });
+
     $("#saveBtn").click(function () {
 
         if ($("#createProduct").valid()) {
@@ -400,9 +408,19 @@
         $.ajax({
             type: "GET",
             url: "/Product/SaveMedicineType",
-            data: {type: $("#medicineType").val() },
+            data: { type: $("#medicineType").val() },
             success: function () {
-                window.location.href = "/Product/add_new_product";
+                $.ajax({
+                    type: "GET",
+                    url: "/product/GetMedicineTypes",
+                    success: function (data) {
+                        $("#medicine_id").empty();
+                        $('#MedicineTypeModal').modal('toggle');
+                        for (var i = 0; i < data.length; i++) {
+                            $("#medicine_id").append('<option selected="selected" value="' + data[i].Id + '">' + data[i].Name + '</option>');
+                        }
+                    }
+                });
             }
         })
 
@@ -413,32 +431,61 @@
             url: "/Product/SaveCompany",
             data: { company: $("#company").val() },
             success: function () {
-                window.location.href = "/Product/add_new_product";
+                $.ajax({
+                    type: "GET",
+                    url: "/product/showCompanyDropDownList",
+                    success: function (data) {
+                        $("#company_id").empty();
+                        $('#CompanyModal').modal('toggle');
+                        for (var i = 0; i < data.length; i++) {
+                            debugger;
+                                $("#company_id").append('<option selected="selected" value="'+data[i].Id+'">'+data[i].Name+'</option>');
+                        }
+                    }
+                });
             }
         })
     });
-
-   
     $("#btnSaveDistributor").click(function () {
         $.ajax({
             type: "GET",
             url: "/Product/SaveDistributor",
             data: { distributor: $("#distributor").val() },
             success: function () {
-                window.location.href = "/Product/add_new_product";
+                $.ajax({
+                    type: "GET",
+                    url: "/product/GetDistributor",
+                    success: function (data) {
+                        $("#distributor_id").empty();
+                        $('#DistributorModal').modal('toggle');
+                        for (var i = 0; i < data.length; i++) {
+                            
+                            $("#distributor_id").append('<option selected="selected" value="' + data[i].Id + '">' + data[i].Name + '</option>');
+                        }
+                    }
+                });
             }
         })
     });
     $("#btnSaveCategory").click(function () {
+        
         $.ajax({
             type: "GET",
             url: "/Product/SaveCategory",
             data: { category: $("#category").val() },
             success: function () {
-                window.location.href = "/Product/add_new_product";
+                $.ajax({
+                    type: "GET",
+                    url: "/product/GetCategories",
+                    success: function (data) {
+                        $("#category_id").empty();
+                        $('#CategoryModal').modal('toggle');
+                        for (var i = 0; i < data.length; i++) {
+                            $("#category_id").append('<option selected="selected" value="' + data[i].Id + '">' + data[i].Name + '</option>');
+                        }
+                    }
+                });
             }
         })
     });
 </script>
-
-

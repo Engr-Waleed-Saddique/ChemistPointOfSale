@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SuperShaheenChemist.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +11,11 @@ namespace SuperShaheenChemist.Web.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.OutofStock=ProductsService.Instance.OutOfStockProducts().Count;
+            ViewBag.NoOfProducts = ProductsService.Instance.GetProducts().Count;
+            ViewBag.CashTotalToday = ProductsService.Instance.CashTotalToday();
+            ViewBag.SalesToday = ProductsService.Instance.SaleToday();
+            ViewBag.MonthTotalSales = ProductsService.Instance.MonthTotalSales();
             return View();
         }
 

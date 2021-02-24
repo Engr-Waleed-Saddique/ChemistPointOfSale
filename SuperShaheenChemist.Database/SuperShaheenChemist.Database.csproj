@@ -173,6 +173,14 @@
     <Compile Include="Migrations\202102160455029_LooseSaleAddedInStockInventry.Designer.cs">
       <DependentUpon>202102160455029_LooseSaleAddedInStockInventry.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102161638006_productsRemovedCompaniesTable.cs" />
+    <Compile Include="Migrations\202102161638006_productsRemovedCompaniesTable.Designer.cs">
+      <DependentUpon>202102161638006_productsRemovedCompaniesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102161652229_ProductRemovedFromTypes.cs" />
+    <Compile Include="Migrations\202102161652229_ProductRemovedFromTypes.Designer.cs">
+      <DependentUpon>202102161652229_ProductRemovedFromTypes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -279,6 +287,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102160455029_LooseSaleAddedInStockInventry.resx">
       <DependentUpon>202102160455029_LooseSaleAddedInStockInventry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102161638006_productsRemovedCompaniesTable.resx">
+      <DependentUpon>202102161638006_productsRemovedCompaniesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102161652229_ProductRemovedFromTypes.resx">
+      <DependentUpon>202102161652229_ProductRemovedFromTypes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

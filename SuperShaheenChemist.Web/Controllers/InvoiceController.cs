@@ -1,13 +1,20 @@
 ﻿using Newtonsoft.Json;
+using PrinterUtility;
 using SuperShaheenChemist.Entities;
 using SuperShaheenChemist.Services;
 using SuperShaheenChemist.Web.ViewModels;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using ESC_POS_USB_NET.Printer;
+using ESC_POS_USB_NET.Enums;
 
 namespace SuperShaheenChemist.Web.Controllers
 {
@@ -20,7 +27,7 @@ namespace SuperShaheenChemist.Web.Controllers
         }
         public ActionResult CreateInvoice()
         {
-            int billno=PurchaseService.Instance.OrdersMaxID()+1;
+            int billno = PurchaseService.Instance.OrdersMaxID() + 1;
             ViewBag.billno = billno;
             return View();
         }
@@ -35,7 +42,7 @@ namespace SuperShaheenChemist.Web.Controllers
         public ActionResult GetExpiry(string batchNo)
         {
             var products = ProductsService.Instance.GetProducts();
-            var ob = products.Where(x => x.BatchNo.Trim().ToLower() == batchNo.Trim().ToLower()).Select(x => new { x.ExpiryDate, x.PackRetailCost,x.Id }).FirstOrDefault();
+            var ob = products.Where(x => x.BatchNo.Trim().ToLower() == batchNo.Trim().ToLower()).Select(x => new { x.ExpiryDate, x.PackRetailCost, x.Id }).FirstOrDefault();
             return Json(ob, JsonRequestBehavior.AllowGet);
         }
 
@@ -46,16 +53,16 @@ namespace SuperShaheenChemist.Web.Controllers
             return Json(ob, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public ActionResult SaveSaleProducts(string saleItems,string CustomerName)
+        public ActionResult SaveSaleProducts(string saleItems, string CustomerName)
         {
 
             var result = JsonConvert.DeserializeObject<List<SaleViewModel>>(saleItems);
             OrderItem temp = new OrderItem();
-            Order order = new Order();   
+            Order order = new Order();
             decimal total = 0;
-            foreach(var item in result)
+            foreach (var item in result)
             {
-                total= total+Convert.ToDecimal(item.Amount);
+                total = total + Convert.ToDecimal(item.Amount);
             }
             order.TotalAmount = total;
             order.Date = DateTime.Now;
@@ -73,7 +80,7 @@ namespace SuperShaheenChemist.Web.Controllers
                         temp.Quantity = int.Parse(item.Quantity);
                     }
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     temp.Quantity = 0;
                 }
@@ -84,7 +91,7 @@ namespace SuperShaheenChemist.Web.Controllers
                         temp.Loose = int.Parse(item.Loose);
                     }
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     temp.Loose = 0;
                 }
@@ -98,7 +105,7 @@ namespace SuperShaheenChemist.Web.Controllers
                         temp.Discount = int.Parse(item.Discount);
                     }
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     temp.Discount = 0;
                 }
@@ -117,7 +124,7 @@ namespace SuperShaheenChemist.Web.Controllers
                     if (item.Amount != "")
                     {
                         //stock.TotalAmount = int.Parse(item.Amount);
-                        stock.TotalAmount= (int)Convert.ToInt64(Math.Floor(Convert.ToDouble(item.Amount)));
+                        stock.TotalAmount = (int)Convert.ToInt64(Math.Floor(Convert.ToDouble(item.Amount)));
                     }
                 }
                 catch (Exception)
@@ -162,17 +169,19 @@ namespace SuperShaheenChemist.Web.Controllers
         public ActionResult PreviewReceipt(int id)
         {
             List<OrderItem> data = new List<OrderItem>();
-            data=PurchaseService.Instance.GetOrderDetials(id);
+            data = PurchaseService.Instance.GetOrderDetials(id);
             decimal total = 0;
             int numberOfItems = 0;
-            foreach(var item in data)
+            string custName = PurchaseService.Instance.GetCustomerName(id);
+            foreach (var item in data)
             {
-                total =total+ item.Amount;
+                total = total + item.Amount;
                 numberOfItems++;
             }
             ViewBag.total = total;
             ViewBag.numberofitems = numberOfItems;
-            ViewBag.BillNo ="";
+            ViewBag.CustomerName = custName;
+            ViewBag.BillNo = "";
             ViewBag.data = data;
             ViewBag.orderNo = id;
             return View();
@@ -183,12 +192,16 @@ namespace SuperShaheenChemist.Web.Controllers
             data = PurchaseService.Instance.GetOrderDetials(id);
             decimal total = 0;
             int numberOfItems = 0;
+
+            string custName = PurchaseService.Instance.GetCustomerName(id);
+
             foreach (var item in data)
             {
                 total = total + item.Amount;
                 numberOfItems++;
             }
             ViewBag.total = total;
+            ViewBag.CustomerName = custName;
             ViewBag.numberofitems = numberOfItems;
             ViewBag.BillNo = "";
             ViewBag.data = data;
@@ -203,7 +216,7 @@ namespace SuperShaheenChemist.Web.Controllers
             }
             else
             {
-                
+
                 return View(OrderService.Instance.GetAllOrders());
             }
         }
@@ -213,7 +226,7 @@ namespace SuperShaheenChemist.Web.Controllers
         public ActionResult ReturnProducts(int billno)
         {
             var ob = new List<OrderItem>();
-            ob=SaleService.Instance.GetBillNoItems(billno);
+            ob = SaleService.Instance.GetBillNoItems(billno);
             if (ob.Count() == 0)
             {
                 return Json("Fail", JsonRequestBehavior.AllowGet);
@@ -222,6 +235,90 @@ namespace SuperShaheenChemist.Web.Controllers
             {
                 return Json(ob, JsonRequestBehavior.AllowGet);
             }
+        }
+        public void sample()
+        {
+            
+        }
+        public ActionResult thermalPrinterRecipt(int id)
+        {
+            List<OrderItem> data = new List<OrderItem>();
+            data = PurchaseService.Instance.GetOrderDetials(id);
+            decimal total = 0;
+            int numberOfItems = 0;
+            string custName = PurchaseService.Instance.GetCustomerName(id);
+            foreach (var item in data)
+            {
+                total = total + item.Amount;
+                numberOfItems++;
+            }
+            ViewBag.total = total;
+            ViewBag.CustomerName = custName;
+            ViewBag.numberofitems = numberOfItems;
+            ViewBag.BillNo = "";
+            ViewBag.data = data;
+            ViewBag.orderNo = id;
+            return View();
+        }
+        public void print(int id)
+        {
+            //code edited
+            List<OrderItem> data = new List<OrderItem>();
+            data = PurchaseService.Instance.GetOrderDetials(id);
+            decimal total = 0;
+            int numberOfItems = 0;
+            string custName = PurchaseService.Instance.GetCustomerName(id);
+            foreach (var item in data)
+            {
+                total = total + item.Amount;
+                numberOfItems++;
+            }
+            ViewBag.data = data;
+            var totalAmount = total.ToString();
+            
+            //code edited end
+            string DeveloperName= "Waleed Saddique";
+            string DMobileNumber="03465888624";
+            Printer printer = new Printer("BIXOLON SRP-350plusII");
+            printer.AlignCenter();
+            printer.Append("Super Shaheen Chemist");
+            printer.Append("DHQ KOTLI AZAD KASHMIR");
+            printer.Append("Md: Ikram Asghar");
+            printer.Append("Mobile # 0331-7707777");
+            printer.Append("----------------------------------------");
+            printer.AlignLeft();
+            printer.Append("Bill: "+id);
+            if (custName != "")
+            {
+                printer.Append("Customer Name: " + custName);
+            }
+            printer.Append("=========================================");
+
+
+            
+            printer.CondensedMode(PrinterModeState.On);
+            printer.Append(string.Format("{0,-8}{1,-8}{2,-14}{3,-12}{4,-8}", "Pack", "Unit", "Item", "B.No", "Amount"));
+            printer.Append("=======================================================");
+            foreach (var item in data)
+            {
+                
+                printer.Append(string.Format("{0,-8}{1,-8}{2,-14}{3,-12}{4,-8}", item.Quantity, item.Loose, item.Product.ProductName, item.BatchNo, item.Amount));
+                
+
+            }
+            printer.CondensedMode(PrinterModeState.Off);
+            printer.Append("----------------------------------------");
+            printer.AlignCenter();
+            printer.Font("Total Amount Rs:"+totalAmount, Fonts.FontC);
+            printer.Append("----------------------------------------");
+            printer.NewLines(2);
+            printer.AlignCenter();
+            printer.Append("Developed By");
+            printer.Append(DeveloperName);
+            printer.Append(DMobileNumber);
+            printer.NewLines(2);
+            printer.FullPaperCut();
+            printer.PrintDocument();
         }
     }
 }

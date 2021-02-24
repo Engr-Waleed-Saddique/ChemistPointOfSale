@@ -50,9 +50,8 @@
     <div class="col-md-12">
         <hr />
         <b>Bill No :@ViewBag.orderNo </b><br>
-        <b>Customer Name : Waleed Saddique</b><br>
+        <b>Customer Name : @ViewBag.CustomerName</b><br>
         <b>Date : 12-01-21</b><br>
-        <b>Salesman: Ikram Asghar</b>
         <br />
         <br />
         
@@ -70,11 +69,12 @@
                 <thead>
                     <tr>
                         <th>
-                            Quantity
-                        </th>
-                        <th>
                             Product Name
                         </th>
+                        <th>
+                            Quantity
+                        </th>
+                        <th>Units</th>
                         <th>
                             Batch
                         </th>
@@ -91,10 +91,11 @@
                     @foreach (var item in ViewBag.Data)
                     {
                         <tr style="border-bottom:2px solid #ccc;">
-                            <td>@item.Quantity</td>
                             <td>
                                 @item.Product.ProductName
                             </td>
+                            <td>@item.Quantity</td>
+                            <td>@item.Loose</td>
                             <td>
                                 @item.BatchNo
                             </td>
@@ -119,12 +120,6 @@
                 <th>
                     No of
                     Items : @ViewBag.numberOfItems
-                </th>
-                <th>
-                    Gross Total : Rs                        111.75
-                </th>
-                <th>
-                    Total Disc : Rs                        0.00
                 </th>
                 <th class="text-right">Net Total : Rs                        @ViewBag.total</th>
             </tr>

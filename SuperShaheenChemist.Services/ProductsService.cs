@@ -20,6 +20,9 @@ namespace SuperShaheenChemist.Services
                 return instance;
             }
         }
+
+        
+
         private static ProductsService instance { get; set; }
 
         private ProductsService()
@@ -27,8 +30,6 @@ namespace SuperShaheenChemist.Services
 
         }
         #endregion
-
-
         public void SaveProduct(Product product)
         {
             using (var context = new CBContext())
@@ -37,7 +38,6 @@ namespace SuperShaheenChemist.Services
                 context.SaveChanges();
             }
         }
-
         public List<Product> GetProducts()
         {
             
@@ -182,7 +182,61 @@ namespace SuperShaheenChemist.Services
                 return context.StockInventries.Include(x=>x.Product).ToList();
             }
         }
+        public int CashTotalToday()
+        {
+            int total = 0;
+            using (var context = new CBContext())
+            {
+                var date = DateTime.Now.ToString("dd/MM/yyyy");
+                var temp = context.Orders.ToList();
+                foreach (var item in temp)
+                {
+                    var date2 = item.Date.ToString("dd/MM/yyyy");
+                    if (date2 == date)
+                    {
+                        total = (int)(total + item.TotalAmount);
+                    }
+                }
+            }
+            return total;
+        }
 
-        
+        public int SaleToday()
+        {
+            int total = 0;
+            using (var context = new CBContext())
+            {
+                var date = DateTime.Now.ToString("dd/MM/yyyy");
+                var temp = context.Orders.ToList();
+                foreach (var item in temp)
+                {
+                    var date2 = item.Date.ToString("dd/MM/yyyy");
+                    if (date2 == date)
+                    {
+                        total = total + 1;
+                    }
+                }
+            }
+            return total;
+        }
+        public int MonthTotalSales()
+        {
+            int total = 0;
+            using (var context = new CBContext())
+            {
+                var date = DateTime.Now.Month;
+                var temp = context.Orders.ToList();
+                foreach (var item in temp)
+                {
+                    var date2 = item.Date.Month;
+                    if (date2 == date)
+                    {
+                        total = total + 1;
+                    }
+                }
+            }
+            return total;
+        }
+
     }
 }

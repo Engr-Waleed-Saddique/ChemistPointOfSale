@@ -142,7 +142,7 @@
                     var string = start + pattern + close;
                     //modified code ends here
                     $("#purchaseItems").append('<tr class="rowSelector" style="background-color: white;"><td>' + data.ProductName + '</td><td>'+string+'</td><td>'
-                        + data.GenericName + '</td><td><input class="qunatity" type="number"/></td><td>' + data.PackRetailCost + '</td><td id="amount">0</td><td><button class="remove btn btn-danger"><i class="fa fa-trash bill-times-icon" aria-hidden="true"></i></button> </td><td><input type="hidden" class="prodId" value="' + data.Id + '"></td></tr>');
+                        + data.GenericName + '</td><td><input class="qunatity" type="number"/></td><td>' + data.PackCost + '</td><td id="amount">0</td><td><button class="remove btn btn-danger"><i class="fa fa-trash bill-times-icon" aria-hidden="true"></i></button> </td><td><input type="hidden" class="prodId" value="' + data.Id + '"></td></tr>');
                     $("#barcode_scan_area").empty();
                 }
             });

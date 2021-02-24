@@ -19,7 +19,7 @@
         margin: 0; /* this affects the margin in the printer settings */
         margin-top: 20px;
     }
-    }
+    
 </style>
 <div class="row" id="print-section">
     <div class="col-md-2 col-sm-2 col-xs-2 text-center">
@@ -36,11 +36,11 @@
         </b>
         <br />
         <b>
-            Phone : 0333-1111111
+            Phone : 0331-7707777
         </b>
         <br />
         <b>
-            Email Address : supershaheen@@gmail.com
+            Email Address : ikram0asghar@@gmail.com
         </b>
         <br />
         <b>
@@ -137,7 +137,7 @@
 <script>
     $(document).ready(function () {
         $("#btn").click(function () {
-            window.print();
+            window.location.href = "/Invoice/print/" +@ViewBag.orderNo+ "";
         });
     });
 </script>

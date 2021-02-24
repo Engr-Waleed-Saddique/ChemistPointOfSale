@@ -268,6 +268,7 @@ namespace SuperShaheenChemist.Web.Controllers
                 {
                     PurchaseService.Instance.DeleteReturnItem(returnObject.RecordID);
                     temp.Stock = temp.Stock + returnObject.Quantity;
+                    temp.Sale = temp.Sale - returnObject.Quantity;
                     temp.TotalAmount = (int)(temp.TotalAmount + returnObject.ReturnAmount);
                     StockService.Instance.updateStock(temp);
                 }
@@ -277,6 +278,7 @@ namespace SuperShaheenChemist.Web.Controllers
                     ob.Amount = (ob.Amount - returnObject.ReturnAmount);
                     PurchaseService.Instance.UpdateReturnItem(ob);
                     temp.Stock = temp.Stock + returnObject.Quantity;
+                    temp.Sale = temp.Sale - returnObject.Quantity;
                     temp.TotalAmount = (int)(temp.TotalAmount + returnObject.ReturnAmount);
                     StockService.Instance.updateStock(temp);
                 }
@@ -289,6 +291,7 @@ namespace SuperShaheenChemist.Web.Controllers
                 {
                     PurchaseService.Instance.DeleteReturnItem(returnObject.RecordID);
                     temp.Stock = temp.Stock + returnObject.Quantity;
+                    temp.Sale = temp.Sale - returnObject.Quantity;
                     temp.LooseSale = temp.LooseSale - returnObject.Loose;
                     temp.TotalAmount = (int)(temp.TotalAmount + returnObject.ReturnAmount);
                     StockService.Instance.updateStock(temp);
@@ -301,6 +304,7 @@ namespace SuperShaheenChemist.Web.Controllers
                     ob.Loose = (ob.Loose - returnObject.Loose);
                     PurchaseService.Instance.UpdateReturnItem(ob);
                     temp.Stock = temp.Stock + returnObject.Quantity;
+                    temp.Sale = temp.Sale - returnObject.Quantity;
                     temp.LooseSale = temp.LooseSale - returnObject.Loose;
                     temp.TotalAmount = (int)(temp.TotalAmount + returnObject.ReturnAmount);
                     StockService.Instance.updateStock(temp);
@@ -314,6 +318,7 @@ namespace SuperShaheenChemist.Web.Controllers
                 {
                     PurchaseService.Instance.DeleteReturnItem(returnObject.RecordID);
                     temp.Stock = temp.Stock + returnObject.Quantity;
+                    temp.Sale = temp.Sale - returnObject.Quantity;
                     temp.LooseSale = temp.LooseSale - returnObject.Loose;
                     temp.TotalAmount = (int)(temp.TotalAmount + returnObject.ReturnAmount);
                     StockService.Instance.updateStock(temp);
@@ -325,6 +330,7 @@ namespace SuperShaheenChemist.Web.Controllers
                     ob.Loose = (ob.Loose - returnObject.Loose);
                     PurchaseService.Instance.UpdateReturnItem(ob);
                     temp.Stock = temp.Stock + returnObject.Quantity;
+                    temp.Sale = temp.Sale - returnObject.Quantity;
                     temp.LooseSale = temp.LooseSale - returnObject.Loose;
                     temp.TotalAmount = (int)(temp.TotalAmount + returnObject.ReturnAmount);
                     StockService.Instance.updateStock(temp);
@@ -381,6 +387,7 @@ namespace SuperShaheenChemist.Web.Controllers
                 {
                     PurchaseService.Instance.DeleteReturnItem(returnObject.RecordID);
                     temp.Stock = temp.Stock + returnObject.Quantity;
+                    temp.Sale = temp.Sale - returnObject.Quantity;
                     temp.TotalAmount = (int)(temp.TotalAmount + returnObject.ReturnAmount);
                     StockService.Instance.updateStock(temp);
                 }
@@ -390,6 +397,7 @@ namespace SuperShaheenChemist.Web.Controllers
                     ob.Amount = (ob.Amount - returnObject.ReturnAmount);
                     PurchaseService.Instance.UpdateReturnItem(ob);
                     temp.Stock = temp.Stock + returnObject.Quantity;
+                    temp.Sale = temp.Sale - returnObject.Quantity;
                     temp.TotalAmount = (int)(temp.TotalAmount + returnObject.ReturnAmount);
                     StockService.Instance.updateStock(temp);
                 }

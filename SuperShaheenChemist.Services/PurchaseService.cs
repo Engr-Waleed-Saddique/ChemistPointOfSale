@@ -199,5 +199,13 @@ namespace SuperShaheenChemist.Services
 
             }
         }
+
+        public string GetCustomerName(int id)
+        {
+            using (var context =new CBContext())
+            {
+                return context.Orders.Where(x => x.Id == id).Select(x => x.CustomerName).FirstOrDefault();
+            }
+        }
     }
 }
